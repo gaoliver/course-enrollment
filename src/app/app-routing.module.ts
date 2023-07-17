@@ -5,7 +5,7 @@ import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     title: 'Home',

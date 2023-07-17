@@ -1,3 +1,26 @@
 .header-title {
+  width: fit-content;
   text-transform: uppercase;
+}
+
+.header-navigation {
+  flex: 1;
+
+  ul {
+    width: fit-content;
+    display: flex;
+    margin: 0;
+    padding-inline-start: 0;
+    gap: var(--spacing-large);
+    float: right;
+  }
+
+  ul li {
+    width: fit-content;
+    list-style: none;
+
+    a {
+
+    }
+  }
 }
