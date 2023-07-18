@@ -14,6 +14,7 @@ import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 import { HttpClientModule } from '@angular/common/http';
+import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     SignupComponent,
     CoursesComponent,
     HistoryComponent,
+    CourseEnrollmentComponent,
   ],
   imports: [
     BrowserModule,

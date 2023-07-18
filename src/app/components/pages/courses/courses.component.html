@@ -16,7 +16,7 @@
 
     <mat-card-footer class="course-card-footer" color="primary">
       <span class="course-price">{{ course.price | currency }}</span>
-      <button mat-button>To Enroll</button>
+      <a mat-button [routerLink]="[course.id, 'enrollment']">To Enroll</a>
     </mat-card-footer>
   </mat-card>
 </section>

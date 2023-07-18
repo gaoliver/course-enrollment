@@ -4,6 +4,7 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
+import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
 
 export const navbar: Routes = [
   {
@@ -28,6 +29,11 @@ export const routes: Routes = [
     path: 'sign-up',
     title: 'Sign Up',
     component: SignupComponent,
+  },
+  {
+    path: 'courses/:courseId/enrollment',
+    title: 'Course: ',
+    component: CourseEnrollmentComponent,
   },
   ...navbar,
 ];
