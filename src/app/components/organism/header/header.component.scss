@@ -11,7 +11,7 @@
     display: flex;
     margin: 0;
     padding-inline-start: 0;
-    gap: var(--spacing-large);
+    gap: var(--spacing-medium);
     float: right;
   }
 
@@ -19,14 +19,15 @@
     width: fit-content;
     list-style: none;
 
-
     a {
-      color: var(--color-text);
       text-decoration: none;
+      font-size: large;
+      color: var(--color-text);
     }
 
     a mat-icon {
       vertical-align: middle;
+      font-size: x-large;
     }
   }
 }

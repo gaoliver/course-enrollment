@@ -1,3 +1,18 @@
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+$app-primary: mat.define-palette(mat.$pink-palette);
+$app-accent: mat.define-palette(mat.$blue-grey-palette);
+$app-warn: mat.define-palette(mat.$red-palette);
+
+$app-theme: mat.define-light-theme((color: (primary: $app-primary,
+        accent: $app-accent,
+        warn: $app-warn,
+      )));
+
+@include mat.all-component-themes($app-theme);
+
 :root {
   // Spacing
   --spacing: 10px;
@@ -6,15 +21,19 @@
   --spacing-large: calc(var(--spacing-medium) * 2);
   --spacing-x-large: calc(var(--spacing-large) * 2);
   --spacing-xx-large: calc(var(--spacing-large) * 3);
+
+  // Colors
+  --color-primary: mat.$get-color-from-palette($app-primary, '50');
+  --color-accent: mat.$get-color-from-palette($app-accent, 400);
 }
 
 html,
 body {
   height: 100%;
-  background-color: var(--color-primary);
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: var(--color-accent);
 }
