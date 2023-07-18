@@ -8,4 +8,6 @@ import { navbar } from 'src/app/app-routing.module';
 })
 export class HeaderComponent {
   pagesList = navbar;
+
+
 }

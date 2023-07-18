@@ -22,6 +22,8 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
   --spacing-x-large: calc(var(--spacing-large) * 2);
   --spacing-xx-large: calc(var(--spacing-large) * 3);
 
+  --max-page-width: 1400px;
+
   // Colors
   --color-primary: mat.$get-color-from-palette($app-primary, '50');
   --color-accent: mat.$get-color-from-palette($app-accent, 400);

@@ -1,10 +1,24 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.app-header {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  max-width: var(--max-page-width);
+  margin: auto;
+}
+
 .header-title {
   width: fit-content;
   text-transform: uppercase;
 }
 
 .header-navigation {
-  flex: 1;
+  margin-left: auto;
+  width: fit-content;
 
   ul {
     width: fit-content;
@@ -12,7 +26,6 @@
     margin: 0;
     padding-inline-start: 0;
     gap: var(--spacing-medium);
-    float: right;
   }
 
   ul li {
