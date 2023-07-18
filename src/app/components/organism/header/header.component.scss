@@ -23,6 +23,7 @@
   ul {
     width: fit-content;
     display: flex;
+    align-items: center;
     margin: 0;
     padding-inline-start: 0;
     gap: var(--spacing-medium);
@@ -39,11 +40,12 @@
     }
 
     a mat-icon {
-      vertical-align: middle;
       font-size: x-large;
     }
   }
 }
+
+.account-button {}
 
 .active {
   background-color: rgba(var(--color-black-rgb), 0.2);

@@ -14,10 +14,78 @@
 
     <ul>
       <li *ngFor="let price of coursePrices">
-        {{ price.value| currency: price.currency }}
+        {{ price.value | currency : price.currency }}
       </li>
     </ul>
   </mat-card-content>
 </mat-card>
 
-<aside class="course-enrollment">Test</aside>
+<aside class="course-enrollment">
+  <mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Choose subscription</ng-template>
+        <mat-form-field class="form-field">
+          <mat-select
+            [formControl]="selected"
+            [(ngModel)]="defaultSubscription"
+          >
+            <mat-option
+              *ngFor="let purchase of course?.purchaseOptions"
+              [value]="purchase.id"
+              >{{ purchase.name }} - {{ purchase.description }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="form-field">
+          <mat-select
+            [formControl]="selected"
+            [(ngModel)]="defaultSubscription"
+          >
+            <mat-option
+              *ngFor="let purchase of course?.purchaseOptions"
+              [value]="purchase.id"
+              >{{ purchase.name }} - {{ purchase.description }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+
+        <div class="form-footer">
+          <button mat-flat-button color="primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step
+      [stepControl]="secondFormGroup"
+      errorMessage="Address is required."
+    >
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Fill out your address</ng-template>
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            matInput
+            placeholder="Ex. 1 Main St, New York, NY"
+            formControlName="secondCtrl"
+            required
+          />
+        </mat-form-field>
+        <div>
+          <p>Go to a different step to see the error state</p>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</aside>

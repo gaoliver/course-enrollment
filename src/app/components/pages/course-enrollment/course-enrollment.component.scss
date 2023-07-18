@@ -17,3 +17,16 @@
 .course-enrollment {
   flex: 1
 }
+
+.form-field {
+  width: 100%;
+}
+
+.form-footer {
+  display: flex;
+  width: 100%;
+
+  button {
+    margin-left: auto;
+  }
+}
