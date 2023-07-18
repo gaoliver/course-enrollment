@@ -14,6 +14,8 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
 @include mat.all-component-themes($app-theme);
 
 :root {
+  --max-page-width: 1400px;
+
   // Spacing
   --spacing: 10px;
   --spacing-small: calc(var(--spacing) / 2);
@@ -22,11 +24,15 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
   --spacing-x-large: calc(var(--spacing-large) * 2);
   --spacing-xx-large: calc(var(--spacing-large) * 3);
 
-  --max-page-width: 1400px;
-
   // Colors
-  --color-primary: mat.$get-color-from-palette($app-primary, '50');
-  --color-accent: mat.$get-color-from-palette($app-accent, 400);
+  --color-primary: #{mat.get-color-from-palette($app-primary, default)};
+  --color-accent: #{mat.get-color-from-palette($app-accent, default)};
+
+  --color-white: #FFFFFF;
+  ---color-black: #000000;
+
+  --color-white-rgb: 255, 255, 255;
+  --color-black-rgb: 0, 0, 0;
 }
 
 html,
@@ -37,5 +43,4 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: var(--color-accent);
 }

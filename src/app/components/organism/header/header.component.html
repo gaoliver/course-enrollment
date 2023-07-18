@@ -3,8 +3,11 @@
 
   <nav class="header-navigation">
     <ul>
+      <li>
+        <a mat-button routerLink="">Home</a>
+      </li>
       <li *ngFor="let page of pagesList">
-        <a mat-button [routerLink]="page.path">{{ page.title }}</a>
+        <a mat-button [routerLink]="page.path" routerLinkActive="active">{{ page.title }}</a>
       </li>
       <li><a routerLink="sign-up">
         <mat-icon fontIcon="account_circle"></mat-icon>
