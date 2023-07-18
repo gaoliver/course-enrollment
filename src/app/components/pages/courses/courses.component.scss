@@ -1,0 +1,30 @@
+@import "../../../../mixin.scss";
+
+.courses-container {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: var(--spacing);
+}
+
+.course-card-container {
+  width: 350px;
+}
+
+.course-card-img {
+  aspect-ratio: 1.5;
+  width: 100%;
+  object-fit: cover;
+}
+
+.course-card-header {
+  height: 50px;
+}
+
+.course-card-description {
+  flex: 1;
+  padding-top: var(--spacing);
+
+  p {
+    @include text-overflow(4);
+  }
+}

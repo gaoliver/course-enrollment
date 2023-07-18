@@ -1,1 +1,15 @@
-<p>courses works!</p>
+<section class="courses-container">
+  <mat-card *ngFor="let course of coursesList" class="course-card-container">
+    <mat-card-header class="course-card-header">
+      <mat-card-title>{{ course.name }}</mat-card-title>
+    </mat-card-header>
+    <img
+      class="course-card-img"
+      [src]="course.image"
+      [alt]="course.name + ' cover image'"
+    />
+    <mat-card-content class="course-card-description">
+      <p>{{ course.description }}</p>
+    </mat-card-content>
+  </mat-card>
+</section>
