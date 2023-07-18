@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "Component",
-    "Page"
+    "Page",
+    "Service"
   ]
 }
