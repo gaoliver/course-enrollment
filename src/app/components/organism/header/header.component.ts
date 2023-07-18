@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { routes } from 'src/app/app-routing.module';
+import { navbar } from 'src/app/app-routing.module';
 
 @Component({
   selector: '[app-header]',
@@ -7,5 +7,5 @@ import { routes } from 'src/app/app-routing.module';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  pagesList = routes;
+  pagesList = navbar;
 }

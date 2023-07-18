@@ -5,16 +5,11 @@ import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 
-export const routes: Routes = [
+export const navbar: Routes = [
   {
     path: '',
     title: 'Home',
     component: HomeComponent,
-  },
-  {
-    path: 'sign-up',
-    title: 'Sign Up',
-    component: SignupComponent,
   },
   {
     path: 'courses',
@@ -25,6 +20,15 @@ export const routes: Routes = [
     path: 'enrollment-history',
     title: 'History',
     component: HistoryComponent,
+  },
+];
+
+export const routes: Routes = [
+  ...navbar,
+  {
+    path: 'sign-up',
+    title: 'Sign Up',
+    component: SignupComponent,
   },
 ];
 

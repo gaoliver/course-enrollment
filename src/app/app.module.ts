@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,11 +13,19 @@ import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, HomeComponent, SignupComponent, CoursesComponent, HistoryComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    HomeComponent,
+    SignupComponent,
+    CoursesComponent,
+    HistoryComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatIconModule,
     MatToolbarModule,
   ],
   providers: [],
