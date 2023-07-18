@@ -6,7 +6,7 @@
 
     <img
       class="course-card-img"
-      [src]="course.image || 'https://placehold.co/600x400?text=No+Image'"
+      [src]="course.image || 'https://placehold.co/600x400/F5F5F5/white/?text=No+Image'"
       [alt]="course.name + ' cover image'"
     />
 
@@ -16,6 +16,7 @@
 
     <mat-card-footer class="course-card-footer" color="primary">
       <span class="course-price">{{ course.price | currency }}</span>
+      <button mat-button>To Enroll</button>
     </mat-card-footer>
   </mat-card>
 </section>
