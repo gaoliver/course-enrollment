@@ -6,11 +6,13 @@ import { Course } from 'src/app/services/@types';
 import { CoursesService } from 'src/app/services/courses.service';
 import { CoutryAPI } from '@components/@types/countries';
 
-import {
-  FormBuilder,
-  FormControl,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { env } from '@src/environments/env';
+
+interface MappedPricing {
+  value: number;
+  currency: string;
+}
 @Component({
   selector: 'app-course-enrollment',
   templateUrl: './course-enrollment.component.html',
@@ -18,22 +20,16 @@ import {
 })
 export class CourseEnrollmentComponent implements OnInit {
   course: Course | undefined;
-  coursePrices: { value: number; currency: string }[] | undefined;
+  coursePrices: MappedPricing[] | undefined;
   countries: CoutryAPI[] | undefined;
   defaultSubscription: string | undefined;
+  defaultPrice: number | undefined;
+  subscriptionPrices: MappedPricing[] | undefined;
 
-  selected = new FormControl('valid', [
-    Validators.required,
-    Validators.pattern('valid'),
-  ]);
-  selectFormControl = new FormControl('valid', [
-    Validators.required,
-    Validators.pattern('valid'),
-  ]);
-  nativeSelectFormControl = new FormControl('valid', [
-    Validators.required,
-    Validators.pattern('valid'),
-  ]);
+  selected = new FormControl();
+  selectedPrice = new FormControl();
+  selectFormControl = new FormControl();
+  nativeSelectFormControl = new FormControl();
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -72,28 +68,43 @@ export class CourseEnrollmentComponent implements OnInit {
   }
 
   mapPricingList(pricingList: Course['pricing']) {
-    this.coursePrices = pricingList.map((course) => ({
+    return pricingList.map((course) => ({
       ...course,
       currency: this.getIsoCode(course.currency),
     }));
   }
 
+  getSubscriptionPrices() {
+    const foundSubscriptionPrices = this.course?.purchaseOptions.find(
+      (option) => option.id === this.selected.value
+    )?.pricing;
+
+    if (foundSubscriptionPrices) {
+      this.subscriptionPrices = this.mapPricingList(foundSubscriptionPrices);
+      this.defaultPrice = this.subscriptionPrices[0].value;
+    }
+  }
+
   ngOnInit(): void {
     const courseIdParam = this.activeRoute.snapshot.paramMap.get('courseId');
 
-    this.httpClient
-      .get('https://restcountries.com/v3.1/all')
-      .subscribe((res) => {
-        this.countries = res as unknown as CoutryAPI[];
-      });
+    this.httpClient.get(env.countriesApi).subscribe((res) => {
+      this.countries = res as unknown as CoutryAPI[];
+    });
 
     if (courseIdParam) {
       this.http.getCourse(courseIdParam).subscribe((res) => {
         this.course = res.result;
+
         this.defaultSubscription = this.course.purchaseOptions[0].id;
+        this.coursePrices = this.mapPricingList(this.course.pricing);
+
+        this.subscriptionPrices = this.mapPricingList(
+          this.course.purchaseOptions[0].pricing
+        );
+        this.defaultPrice = this.subscriptionPrices[0].value;
 
         this.updatePageTitle(this.course.name);
-        this.mapPricingList(this.course.pricing);
 
         console.log(this.course);
       });

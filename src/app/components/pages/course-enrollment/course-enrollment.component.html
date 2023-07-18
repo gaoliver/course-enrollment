@@ -11,12 +11,6 @@
 
   <mat-card-content>
     <p class="course-description">{{ course.description }}</p>
-
-    <ul>
-      <li *ngFor="let price of coursePrices">
-        {{ price.value | currency : price.currency }}
-      </li>
-    </ul>
   </mat-card-content>
 </mat-card>
 
@@ -29,24 +23,24 @@
           <mat-select
             [formControl]="selected"
             [(ngModel)]="defaultSubscription"
+            (selectionChange)="getSubscriptionPrices()"
           >
             <mat-option
               *ngFor="let purchase of course?.purchaseOptions"
               [value]="purchase.id"
-              >{{ purchase.name }} - {{ purchase.description }}</mat-option
+              >{{ purchase.name }} ({{ purchase.description }})</mat-option
             >
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="form-field">
-          <mat-select
-            [formControl]="selected"
-            [(ngModel)]="defaultSubscription"
-          >
+          <mat-select [formControl]="selectedPrice" [(ngModel)]="defaultPrice">
             <mat-option
-              *ngFor="let purchase of course?.purchaseOptions"
-              [value]="purchase.id"
-              >{{ purchase.name }} - {{ purchase.description }}</mat-option
+              *ngFor="let subscription of subscriptionPrices"
+              [value]="subscription.value"
+              >{{
+                subscription.value | currency : subscription.currency
+              }}</mat-option
             >
           </mat-select>
         </mat-form-field>
