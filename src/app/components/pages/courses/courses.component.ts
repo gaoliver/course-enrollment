@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesList } from 'src/app/services/@types';
+import { Course } from 'src/app/services/@types';
 import { CoursesService } from 'src/app/services/courses.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { CoursesService } from 'src/app/services/courses.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  coursesList: CoursesList | undefined;
+  coursesList: Course[] | undefined;
 
   constructor(private http: CoursesService) {}
 

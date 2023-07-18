@@ -10,10 +10,10 @@ export type CoursesListResponse = {
   pageSize: number;
   page: number;
   count: number;
-  data: CoursesList;
+  data: Course[];
 };
 
-export type CoursesList = {
+export type Course = {
   id: string;
   createdAt: string;
   updatedAt: string;
@@ -61,4 +61,4 @@ export type CoursesList = {
       shouldInheritPrices: true;
     }
   ];
-}[];
+};

@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  gap: var(--spacing-xx-large);
+}
+
+.course-details {
+  flex: 0.6;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.course-description {
+  margin: var(--spacing-medium) 0;
+}
+
+.course-enrollment {
+  flex: 1
+}

@@ -1,1 +1,23 @@
-<p>course-enrollment works!</p>
+<mat-card class="course-details" *ngIf="course">
+  <mat-card-header>
+    <mat-card-title>{{ course.name }}</mat-card-title>
+  </mat-card-header>
+
+  <img
+    [src]="course.image"
+    [alt]="course.name + ' cover image'"
+    [srcset]="course.image"
+  />
+
+  <mat-card-content>
+    <p class="course-description">{{ course.description }}</p>
+
+    <ul>
+      <li *ngFor="let price of coursePrices">
+        {{ price.value| currency: price.currency }}
+      </li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+
+<aside class="course-enrollment">Test</aside>
