@@ -3,13 +3,19 @@
     <mat-card-header class="course-card-header">
       <mat-card-title>{{ course.name }}</mat-card-title>
     </mat-card-header>
+
     <img
       class="course-card-img"
-      [src]="course.image"
+      [src]="course.image || 'https://placehold.co/600x400?text=No+Image'"
       [alt]="course.name + ' cover image'"
     />
+
     <mat-card-content class="course-card-description">
       <p>{{ course.description }}</p>
     </mat-card-content>
+
+    <mat-card-footer class="course-card-footer" color="primary">
+      <span class="course-price">{{ course.price | currency }}</span>
+    </mat-card-footer>
   </mat-card>
 </section>

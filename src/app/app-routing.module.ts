@@ -7,11 +7,6 @@ import { HistoryComponent } from './components/pages/history/history.component';
 
 export const navbar: Routes = [
   {
-    path: '',
-    title: 'Home',
-    component: HomeComponent,
-  },
-  {
     path: 'courses',
     title: 'Courses',
     component: CoursesComponent,
@@ -24,12 +19,17 @@ export const navbar: Routes = [
 ];
 
 export const routes: Routes = [
-  ...navbar,
+  {
+    path: '',
+    title: 'Home',
+    component: HomeComponent,
+  },
   {
     path: 'sign-up',
     title: 'Sign Up',
     component: SignupComponent,
   },
+  ...navbar,
 ];
 
 @NgModule({

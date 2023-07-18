@@ -17,7 +17,7 @@
 }
 
 .course-card-header {
-  height: 50px;
+  height: 40px;
 }
 
 .course-card-description {
@@ -27,4 +27,16 @@
   p {
     @include text-overflow(4);
   }
+}
+
+.course-card-footer {
+  padding: var(--spacing);
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  margin-top: var(--spacing);
+}
+
+.course-price {
+  font-size: 1.3rem;
+  font-weight: bold;
 }

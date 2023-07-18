@@ -3,3 +3,9 @@
   padding: var(--spacing-medium) 0;
   margin: auto;
 }
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
