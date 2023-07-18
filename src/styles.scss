@@ -1,6 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
-
 :root {
+  // Spacing
   --spacing: 10px;
   --spacing-small: calc(var(--spacing) / 2);
   --spacing-medium: calc(var(--spacing) * 2);
@@ -12,6 +11,7 @@
 html,
 body {
   height: 100%;
+  background-color: var(--color-primary);
 }
 
 body {
