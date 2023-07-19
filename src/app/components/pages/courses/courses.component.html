@@ -1,6 +1,6 @@
 <app-searchbar (search)="onSearch($event)" class="courses-search"></app-searchbar>
 
-<section class="courses-container">
+<section class="courses-container" *ngIf="coursesList">
   <mat-card *ngFor="let course of coursesList" class="course-card-container">
     <mat-card-header class="course-card-header">
       <mat-card-title>{{ course.name }}</mat-card-title>
@@ -30,3 +30,5 @@
     </mat-card-footer>
   </mat-card>
 </section>
+
+<p *ngIf="!coursesList" class="courses--no-course">No course found.</p>

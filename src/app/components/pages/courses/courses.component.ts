@@ -4,6 +4,8 @@ import { Course } from 'src/app/services/@types';
 import { CoursesService } from 'src/app/services/courses.service';
 import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
 
+const ERROR_MESSAGE = 'There was an error on the API. Please, try again later.';
+
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
@@ -18,19 +20,16 @@ export class CoursesComponent implements OnInit {
     this.snackBar.openFromComponent(SnackbarComponent, {
       data: message,
       duration: 3000,
+      panelClass: ['snackbar-warn'],
     });
   }
 
   onSearch(query: string) {
     this.http.getCourses({ filters: query }).subscribe(
       (res) => {
-        console.log('working');
         this.coursesList = res.result.data;
       },
-      () =>
-        this.showSnackBar(
-          'There was an error on the API. Please, try again later.'
-        )
+      () => this.showSnackBar(ERROR_MESSAGE)
     );
   }
 
