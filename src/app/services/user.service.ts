@@ -44,24 +44,22 @@ export class CoursesService {
     return GetUserResponse.ERROR;
   }
 
-  public userResister(user: UserWithPassword): GetUserResponse {
+  public userRegister(user: UserWithPassword): GetUserResponse {
+    let userList: UserWithPassword[] = [];
+
     const foundData = localStorage.getItem(USERS_TOKEN);
 
-    if (!foundData) {
-      const stringUserList = JSON.stringify([user]);
+    if (foundData) {
+      userList = JSON.parse(foundData);
 
-      localStorage.setItem(USERS_TOKEN, stringUserList);
+      const foundUser = userList.find((u) => u.email && user.email);
 
-      return GetUserResponse.SUCCESS;
+      if (foundUser) return GetUserResponse.ALREADY_EXISTS;
     }
 
-    const parsedData: UserWithPassword[] = JSON.parse(foundData);
-    const foundUser = parsedData.find((u) => u.email && user.email);
+    const stringList = JSON.stringify(userList.push(user));
 
-    if (foundUser) return GetUserResponse.ALREADY_EXISTS;
-
-    const stringUserList = JSON.stringify(parsedData.push(user));
-    localStorage.setItem(USERS_TOKEN, stringUserList);
+    localStorage.setItem(USERS_TOKEN, stringList);
 
     return GetUserResponse.SUCCESS;
   }
