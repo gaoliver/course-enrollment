@@ -10,31 +10,34 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './components/organism/header/header.component';
 import { HomeComponent } from './components/pages/home/home.component';
-import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
 import { SearchbarComponent } from './components/molecules/searchbar/searchbar.component';
 import { SnackbarComponent } from './components/atoms/snackbar/snackbar.component';
+import { SigninComponent } from './components/pages/signin/signin.component';
+import { SigninTabComponent } from './components/pages/signin/components/signin-tab/signin-tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
-    SignupComponent,
     CoursesComponent,
     HistoryComponent,
     CourseEnrollmentComponent,
     SearchbarComponent,
     SnackbarComponent,
+    SigninComponent,
+    SigninTabComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { SnackbarComponent } from './components/atoms/snackbar/snackbar.componen
     MatSelectModule,
     FormsModule,
     MatSnackBarModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

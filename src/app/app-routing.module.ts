@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
-import { SignupComponent } from './components/pages/signup/signup.component';
 import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
+import { SigninComponent } from './components/pages/signin/signin.component';
 
 export const navbar: Routes = [
   {
@@ -26,9 +26,9 @@ export const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'sign-up',
-    title: 'Sign Up',
-    component: SignupComponent,
+    path: 'sign-in',
+    title: 'Sign In',
+    component: SigninComponent,
   },
   {
     path: 'courses/:courseId/enrollment',

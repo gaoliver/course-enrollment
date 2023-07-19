@@ -16,6 +16,9 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
 @include mat.all-component-themes($app-theme);
 
 :root {
+  $lighter: 50;
+  $dark: 900;
+
   --max-page-width: 1400px;
 
   // Spacing
@@ -28,7 +31,11 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
 
   // Colors
   --color-primary: #{mat.get-color-from-palette($app-primary, default)};
+  --color-primary-lighter: #{mat.get-color-from-palette($app-primary, $lighter)};
+  --color-primary-dark: #{mat.get-color-from-palette($app-primary, $dark)};
   --color-accent: #{mat.get-color-from-palette($app-accent, default)};
+  --color-accent-lighter: #{mat.get-color-from-palette($app-accent, $lighter)};
+  --color-accent-dark: #{mat.get-color-from-palette($app-accent, $dark)};
   --color-warn: #{mat.get-color-from-palette($app-warn, default)};
   --color-success: #{mat.get-color-from-palette($app-success, default)};
 
@@ -52,6 +59,7 @@ body {
 .snackbar-warn {
   --mdc-snackbar-container-color: var(--color-warn) !important;
 }
+
 .snackbar-success {
   --mdc-snackbar-container-color: var(--color-success) !important;
 }

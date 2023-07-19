@@ -1,0 +1,29 @@
+<form action="" method="post">
+  <div class="signin-container">
+    <h1>Get into your account</h1>
+
+    <mat-form-field>
+      <mat-label>E-mail</mat-label>
+      <input matInput type="email" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        matInput
+        [type]="isPasswordVisible ? 'text' : 'password'"
+      />
+      <button
+        matSuffix
+        mat-icon-button
+        aria-label="Password visibility"
+        (click)="togglePassVisible()"
+      >
+        <mat-icon class="pass-visibility-btn">{{isPasswordVisible ? "visibility_off" : "visibility"}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button type="submit" mat-flat-button color="primary">Login</button>
+  </div>
+</form>

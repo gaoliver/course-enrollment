@@ -1,0 +1,18 @@
+.signin-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing);
+
+  margin: 0 auto;
+  max-width: 500px;
+  min-height: 50svh;
+
+  h1 {
+    margin: 0 auto var(--spacing-large);
+  }
+}
+
+.pass-visibility-btn {
+  opacity: 0.4;
+}
