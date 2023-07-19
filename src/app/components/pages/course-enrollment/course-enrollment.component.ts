@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { Course } from 'src/app/services/@types';
+import { Course } from '@src/app/services/@types/apiResponses';
 import { CoursesService } from 'src/app/services/courses.service';
 import { CoutryAPI } from '@components/@types/countries';
 

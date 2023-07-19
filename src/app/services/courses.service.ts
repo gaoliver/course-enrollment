@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse, Course, CoursesListResponse } from './@types';
+import { APIResponse, Course, CoursesListResponse } from './@types/apiResponses';
 
 type GetCourseParams = {
   page?: number;

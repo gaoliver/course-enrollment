@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Course } from '@services/@types';
+import { Course } from '@src/app/services/@types/apiResponses';
 import { CoursesService } from '@services/courses.service';
 import { SnackbarComponent } from '@components/atoms/snackbar/snackbar.component';
 

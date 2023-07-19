@@ -1,16 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
-import { User } from '../store/@types/interfaces';
 import { env } from '@src/environments/env';
-
-export interface UserCredentials {
-  email: string;
-  password: string;
-}
-
-interface UserWithPassword extends User {
-  password: string;
-}
+import {
+  UserCredentials,
+  UserRegister,
+  UserWithPassword,
+} from './@types/interfaces';
 
 enum GetUserResponse {
   SUCCESS = 'success',
@@ -21,7 +16,7 @@ enum GetUserResponse {
 @Injectable({
   providedIn: 'root',
 })
-export class CoursesService {
+export class UserService {
   constructor() {}
 
   public userLogin(user: UserCredentials): GetUserResponse {
@@ -41,18 +36,20 @@ export class CoursesService {
     }
 
     if (foundUser) {
+      console.log(foundUser);
       return GetUserResponse.SUCCESS;
     }
 
     return GetUserResponse.ERROR;
   }
 
-  public userRegister(user: UserWithPassword): GetUserResponse {
+  public userRegister(user: UserRegister): GetUserResponse {
     let userList: UserWithPassword[] = [];
 
     const foundData = localStorage.getItem(env.usersToken);
 
     if (foundData) {
+      console.log(foundData);
       userList = JSON.parse(foundData);
 
       const foundUser = userList.find((u) => u.email && user.email);
@@ -65,7 +62,9 @@ export class CoursesService {
       env.psswdSecret
     ).toString();
 
-    const stringList = JSON.stringify(userList.push(user));
+    userList.push(user);
+
+    const stringList = JSON.stringify(userList);
 
     localStorage.setItem(env.usersToken, stringList);
 

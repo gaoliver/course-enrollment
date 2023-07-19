@@ -2,7 +2,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  enrolled_courses: EnrolledCourse[];
+  enrolled_courses?: EnrolledCourse[];
 }
 
 export interface EnrolledCourse {

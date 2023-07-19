@@ -1,0 +1,70 @@
+<div class="signin-container">
+  <h1>Register</h1>
+
+  <mat-form-field>
+    <mat-label>Fullname</mat-label>
+    <input matInput type="text" [formControl]="name" required />
+    <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>E-mail</mat-label>
+    <input matInput type="email" [formControl]="email" required />
+    <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      [formControl]="password"
+      [type]="isPasswordVisible ? 'text' : 'password'"
+    />
+    <button
+      matSuffix
+      mat-icon-button
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="isPasswordVisible"
+      (click)="togglePassVisible()"
+    >
+      <mat-icon class="pass-visibility-btn">{{
+        isPasswordVisible ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+    <mat-error *ngIf="password.invalid">{{
+      getPasswordErrorMessage()
+    }}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password confirmation</mat-label>
+    <input
+      matInput
+      [formControl]="passwordConfirmation"
+      [type]="isPasswordConfirmVisible ? 'text' : 'password'"
+    />
+    <button
+      matSuffix
+      mat-icon-button
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="isPasswordConfirmVisible"
+      (click)="togglePassConfirmVisible()"
+    >
+      <mat-icon class="pass-visibility-btn">{{
+        isPasswordConfirmVisible ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+    <mat-error *ngIf="passwordConfirmation.invalid">{{
+      getPasswordConfirmErrorMessage()
+    }}</mat-error>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-flat-button
+    color="primary"
+    (click)="onPressRegister()"
+  >
+    Register
+  </button>
+</div>

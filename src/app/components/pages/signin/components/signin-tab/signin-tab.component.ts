@@ -7,9 +7,10 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./signin-tab.component.scss'],
 })
 export class SigninTabComponent {
-  isPasswordVisible: boolean = false;
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
+
+  isPasswordVisible: boolean = false;
 
   getEmailErrorMessage() {
     if (this.email.hasError('required')) {
