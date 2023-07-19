@@ -26,6 +26,7 @@ export type Course = {
   name: string;
   description: string;
   price: number;
+  duration: 7;
   pricing: [
     {
       value: number;

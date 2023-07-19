@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { UserService } from '@src/app/services/user.service';
 import { User } from '@src/app/store/@types/interfaces';
 import { getAppSelector } from '@src/app/store/app.selectors';
 import { AppState } from '@src/app/store/app.state';
@@ -15,18 +16,11 @@ import { env } from '@src/environments/env';
 export class ProfileComponent {
   user: User | undefined;
 
-  constructor(private store: Store<AppState>, private router: Router) {
-    this.store.pipe(select(getAppSelector)).subscribe((state) => {
-      this.user = state.userState.user;
-
-      this.isAuthenticated();
-    });
-  }
-
-  isAuthenticated() {
-    if (!this.user?.id) {
-      this.router.navigate(['sign-in']);
-    }
+  constructor(
+    private store: Store<AppState>,
+    private userService: UserService
+  ) {
+    this.userService.isAuthenticated();
   }
 
   onLogout() {

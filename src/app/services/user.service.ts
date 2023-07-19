@@ -6,7 +6,7 @@ import {
   UserRegister,
   UserWithPassword,
 } from './@types/interfaces';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import {
   getUser,
@@ -14,6 +14,8 @@ import {
   getUserLogout,
   getUserSuccess,
 } from '../store/user/user.actions';
+import { getAppSelector } from '../store/app.selectors';
+import { Router } from '@angular/router';
 
 export enum UserResponse {
   SUCCESS = 'success',
@@ -25,7 +27,7 @@ export enum UserResponse {
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
   private dispatchUser(user: UserWithPassword) {
     const userToken = user.id;
@@ -35,6 +37,16 @@ export class UserService {
     this.store.dispatch(getUserSuccess({ user: rest }));
 
     localStorage.setItem(env.userToken, userToken);
+  }
+
+  public isAuthenticated() {
+    this.store.pipe(select(getAppSelector)).subscribe((state) => {
+      const user = state.userState.user;
+
+      if (!user?.id) {
+        this.router.navigate(['sign-in']);
+      }
+    });
   }
 
   public userGetToken() {
