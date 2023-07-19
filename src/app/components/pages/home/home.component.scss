@@ -11,13 +11,19 @@
   font-size: x-large;
   opacity: 0;
   animation: opacityAnimation forwards 3s;
+  -webkit-animation: opacityAnimation forwards 3s;
+  -moz-animation: opacityAnimation forwards 3s;
 }
 
 .home-title {
   font-size: 4rem;
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
+  -webkit-animation: fadeAnimation forwards 1.5s;
+  -moz-animation: fadeAnimation forwards 1.5s;
   animation-delay: 0.3s;
+  -webkit-animation-delay: 0.3s;
+  -moz-animation-delay: 0.3s;
 }
 
 .home-subtitle {
@@ -25,16 +31,36 @@
   font-size: x-large;
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
+  -webkit-animation: fadeAnimation forwards 1.5s;
+  -moz-animation: fadeAnimation forwards 1.5s;
   animation-delay: 0.6s;
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
 }
 
 .home-button {
   opacity: 0;
   animation: buttonAnimation forwards 1s;
+  animation: buttonAnimation forwards 1s;
+  -webkit-animation: buttonAnimation forwards 1s;
+  -moz-animation: buttonAnimation forwards 1s;
   animation-delay: 1.5s;
+  -webkit-animation-delay: 1.5s;
+  -moz-animation-delay: 1.5s;
 }
 
 @keyframes fadeAnimation {
+  from {
+    transform: translateY(100px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeAnimation {
   from {
     transform: translateY(100px);
   }
@@ -51,7 +77,52 @@
   }
 }
 
+@-webkit-keyframes opacityAnimation {
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes buttonAnimation {
+  from {
+    transform: scale(0);
+  }
+
+  20% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  30% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  40% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  50% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  60% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  70% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  80% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  to {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes buttonAnimation {
   from {
     transform: scale(0);
   }

@@ -1,5 +1,10 @@
 @import "../../../../mixin.scss";
 
+.courses-filter {
+  display: flex;
+  gap: var(--spacing);
+}
+
 .courses-search {
   margin-bottom: var(--spacing-medium);
 }
@@ -50,4 +55,8 @@
 
 .courses--no-course {
   font-size: larger;
+}
+
+.sort-none-option {
+  opacity: 0.5;
 }

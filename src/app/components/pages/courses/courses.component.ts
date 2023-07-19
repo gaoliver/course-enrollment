@@ -3,6 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Course } from '@src/app/services/@types/apiResponses';
 import { CoursesService } from '@services/courses.service';
 import { SnackbarComponent } from '@components/atoms/snackbar/snackbar.component';
+import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 const ERROR_MESSAGE = 'There was an error on the API. Please, try again later.';
 
@@ -13,8 +15,15 @@ const ERROR_MESSAGE = 'There was an error on the API. Please, try again later.';
 })
 export class CoursesComponent implements OnInit {
   coursesList: Course[] | undefined;
+  sortBy: string | undefined;
 
   constructor(private http: CoursesService, private snackBar: MatSnackBar) {}
+
+  onChangeSort(event: MatSelectChange) {
+    this.http
+      .getCourses({ sorts: event.value })
+      .subscribe((res) => (this.coursesList = res.result.data));
+  }
 
   showSnackBar(message: string) {
     this.snackBar.openFromComponent(SnackbarComponent, {
