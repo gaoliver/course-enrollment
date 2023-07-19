@@ -1,1 +1,5 @@
 <p class="no-history" *ngIf="!courses?.length">You have no courses yet.</p>
+
+<ul>
+  <li *ngFor="let course of courses">{{ course.name }}</li>
+</ul>

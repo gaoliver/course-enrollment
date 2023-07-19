@@ -15,6 +15,7 @@ import { getUser, getUserSuccess } from '@src/app/store/user/user.actions';
 import { User } from '@src/app/store/@types/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
+import { UserResponse, UserService } from '@src/app/services/user.service';
 
 interface MappedPricing {
   value: number;
@@ -90,13 +91,16 @@ export class CourseEnrollmentComponent implements OnInit {
 
   constructor(
     private http: CoursesService,
+    private userService: UserService,
     private httpClient: HttpClient,
     private activeRoute: ActivatedRoute,
     private title: Title,
     private _formBuilder: FormBuilder,
     private store: Store<AppState>,
     private snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.userService.isAuthenticated();
+  }
 
   checkAlreadyEnroled() {
     this.store
@@ -155,7 +159,7 @@ export class CourseEnrollmentComponent implements OnInit {
 
     if (this.secondFormGroup.invalid) return;
 
-    this.store.dispatch(getUser());
+    let mappedUser;
 
     this.store.pipe(select(getAppSelector)).subscribe((state) => {
       let user = state.userState.user!;
@@ -167,12 +171,16 @@ export class CourseEnrollmentComponent implements OnInit {
       user.enrolled_courses?.push({
         id: this.course?.id!,
         duration: 7,
-        start_date: this.secondFormGroup.value.startingDate!,
+        start_date: this.secondFormGroup.value.startingDate!.toString(),
         name: this.course?.name!,
       });
 
-      this.store.dispatch(getUserSuccess({ user }));
+      mappedUser = user;
     });
+
+    if (mappedUser) {
+      this.userService.updateUser(mappedUser as unknown as User);
+    }
   }
 
   ngOnInit(): void {

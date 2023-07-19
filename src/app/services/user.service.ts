@@ -16,6 +16,7 @@ import {
 } from '../store/user/user.actions';
 import { getAppSelector } from '../store/app.selectors';
 import { Router } from '@angular/router';
+import { User } from '../store/@types/interfaces';
 
 export enum UserResponse {
   SUCCESS = 'success',
@@ -132,5 +133,26 @@ export class UserService {
     this.dispatchUser(user);
 
     return UserResponse.SUCCESS;
+  }
+
+  public updateUser(user: User): UserResponse {
+    this.store.dispatch(getUser());
+
+    const foundList = localStorage.getItem(env.usersStorage);
+
+    if (foundList) {
+      const parsedList: UserWithPassword[] = JSON.parse(foundList);
+      const foundUserIndex = parsedList.findIndex((u) => u.id === user.id);
+
+      if (foundUserIndex !== -1) {
+        parsedList[foundUserIndex] = { ...parsedList[foundUserIndex], ...user };
+
+        this.store.dispatch(getUserSuccess({ user }));
+
+        return UserResponse.SUCCESS;
+      }
+    }
+
+    return UserResponse.ERROR;
   }
 }
