@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +22,7 @@ import { HistoryComponent } from './components/pages/history/history.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
 import { SearchbarComponent } from './components/molecules/searchbar/searchbar.component';
+import { SnackbarComponent } from './components/atoms/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { SearchbarComponent } from './components/molecules/searchbar/searchbar.c
     HistoryComponent,
     CourseEnrollmentComponent,
     SearchbarComponent,
+    SnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { SearchbarComponent } from './components/molecules/searchbar/searchbar.c
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
-    FormsModule
+    FormsModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

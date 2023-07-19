@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Course } from 'src/app/services/@types';
 import { CoursesService } from 'src/app/services/courses.service';
+import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
 
 @Component({
   selector: 'app-courses',
@@ -10,15 +12,29 @@ import { CoursesService } from 'src/app/services/courses.service';
 export class CoursesComponent implements OnInit {
   coursesList: Course[] | undefined;
 
-  constructor(private http: CoursesService) {}
+  constructor(private http: CoursesService, private snackBar: MatSnackBar) {}
+
+  showSnackBar(message: string) {
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: message,
+      duration: 3000,
+    });
+  }
 
   onSearch(query: string) {
-    console.log(query)
+    this.http.getCourses({ filters: query }).subscribe(
+      (res) => {
+        console.log('working');
+        this.coursesList = res.result.data;
+      },
+      () =>
+        this.showSnackBar(
+          'There was an error on the API. Please, try again later.'
+        )
+    );
   }
 
   ngOnInit(): void {
-    this.http
-      .getCourses()
-      .subscribe((res) => (this.coursesList = res.result.data));
+    this.onSearch('');
   }
 }

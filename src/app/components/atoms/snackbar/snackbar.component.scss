@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+}
+
+::ng-deep .mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--color-accent);
+  --mdc-snackbar-supporting-text-color: rgba(var(--color-white-rgb), 0.87);
+  --mat-snack-bar-button-color: var(--color-white);
+  --mdc-snackbar-supporting-text-size: 1rem;
+
+  .mdc-snackbar__surface {
+    max-width: var(--max-page-width);
+    padding: var(--spacing);
+  }
+}
+
+.snackbar-dismiss {
+  text-decoration: underline;
+}
