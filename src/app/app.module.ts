@@ -25,6 +25,9 @@ import { SearchbarComponent } from './components/molecules/searchbar/searchbar.c
 import { SnackbarComponent } from './components/atoms/snackbar/snackbar.component';
 import { SigninComponent } from './components/pages/signin/signin.component';
 import { SigninTabComponent } from './components/pages/signin/components/signin-tab/signin-tab.component';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducer } from './store/app.state';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,10 @@ import { SigninTabComponent } from './components/pages/signin/components/signin-
     FormsModule,
     MatSnackBarModule,
     MatTabsModule,
+    StoreModule.forRoot(appReducer),
+    StoreDevtoolsModule.instrument({
+      maxAge: 10,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],

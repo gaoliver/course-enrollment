@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Course } from 'src/app/services/@types';
-import { CoursesService } from 'src/app/services/courses.service';
-import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
+import { Course } from '@services/@types';
+import { CoursesService } from '@services/courses.service';
+import { SnackbarComponent } from '@components/atoms/snackbar/snackbar.component';
 
 const ERROR_MESSAGE = 'There was an error on the API. Please, try again later.';
 
