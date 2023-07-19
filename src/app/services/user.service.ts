@@ -24,11 +24,11 @@ export enum UserResponse {
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private store: Store<AppState>) {
-    this.store.dispatch(getUser());
-  }
+  constructor(private store: Store<AppState>) {}
 
   public userLogin(user: UserCredentials): UserResponse {
+    this.store.dispatch(getUser());
+
     let foundUser;
 
     const foundData = localStorage.getItem(env.usersToken);
@@ -58,12 +58,13 @@ export class UserService {
   }
 
   public userRegister(user: UserRegister): UserResponse {
+    this.store.dispatch(getUser());
+
     let userList: UserWithPassword[] = [];
 
     const foundData = localStorage.getItem(env.usersToken);
 
     if (foundData) {
-      console.log(foundData);
       userList = JSON.parse(foundData);
 
       const foundUser = userList.find((u) => u.email && user.email);
