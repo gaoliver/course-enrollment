@@ -8,6 +8,7 @@ import { CoutryAPI } from '@components/@types/countries';
 
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { env } from '@src/environments/env';
+import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 
 interface MappedPricing {
   value: number;
@@ -26,17 +27,33 @@ export class CourseEnrollmentComponent implements OnInit {
   defaultPrice: number | undefined;
   subscriptionPrices: MappedPricing[] | undefined;
 
-  selected = new FormControl();
-  selectedPrice = new FormControl();
-  selectFormControl = new FormControl();
-  nativeSelectFormControl = new FormControl();
-
   firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+    subscription: ['', Validators.required],
+    currency: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    startingDate: ['', Validators.required],
   });
+
+  TEST_LIST = ['2023-07-01', '2023-07-09', '2023-07-19'];
+
+  myFilter = (d: Date | null): boolean => {
+    const toString = d?.toDateString() || '';
+
+    const dDate = new Date(toString);
+    const endDate = new Date();
+
+    const foundDate = this.TEST_LIST.find((date) => {
+      const stringDate = new Date(date).toDateString();
+      const startDate = new Date(stringDate);
+
+      endDate.setDate(startDate.getDate() + 6);
+
+      return dDate >= startDate && dDate <= endDate;
+    });
+
+    return !foundDate;
+  };
 
   constructor(
     private http: CoursesService,
@@ -76,7 +93,8 @@ export class CourseEnrollmentComponent implements OnInit {
 
   getSubscriptionPrices() {
     const foundSubscriptionPrices = this.course?.purchaseOptions.find(
-      (option) => option.id === this.selected.value
+      (option) =>
+        option.id === this.firstFormGroup.controls['subscription'].value
     )?.pricing;
 
     if (foundSubscriptionPrices) {

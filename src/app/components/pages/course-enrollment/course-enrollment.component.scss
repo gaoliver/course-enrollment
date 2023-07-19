@@ -15,18 +15,22 @@
 }
 
 .course-enrollment {
-  flex: 1
+  flex: 1;
 }
 
 .form-field {
   width: 100%;
+  padding-top: var(--spacing-medium);
 }
 
 .form-footer {
-  display: flex;
   width: 100%;
+  margin-top: var(--spacing-large);
 
-  button {
+  display: flex;
+  justify-content: space-between;
+
+  :last-child {
     margin-left: auto;
   }
 }

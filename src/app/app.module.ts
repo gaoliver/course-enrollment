@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -63,6 +65,8 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
     FormsModule,
     MatSnackBarModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       maxAge: 10,
