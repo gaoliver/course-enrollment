@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-signin-tab',
@@ -7,6 +8,24 @@ import { Component } from '@angular/core';
 })
 export class SigninTabComponent {
   isPasswordVisible: boolean = false;
+  email = new FormControl('', [Validators.required, Validators.email]);
+  password = new FormControl('', [Validators.required]);
+
+  getEmailErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  getPasswordErrorMessage() {
+    if (this.password.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return
+  }
 
   togglePassVisible() {
     this.isPasswordVisible = !this.isPasswordVisible;
