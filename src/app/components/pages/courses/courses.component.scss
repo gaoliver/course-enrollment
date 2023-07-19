@@ -1,5 +1,9 @@
 @import "../../../../mixin.scss";
 
+.courses-search {
+  margin-bottom: var(--spacing-medium);
+}
+
 .courses-container {
   display: grid;
   grid-template-columns: repeat(4, auto);

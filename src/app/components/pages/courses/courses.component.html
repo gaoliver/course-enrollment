@@ -1,3 +1,5 @@
+<app-searchbar (search)="onSearch($event)" class="courses-search"></app-searchbar>
+
 <section class="courses-container">
   <mat-card *ngFor="let course of coursesList" class="course-card-container">
     <mat-card-header class="course-card-header">
@@ -6,7 +8,10 @@
 
     <img
       class="course-card-img"
-      [src]="course.image || 'https://placehold.co/600x400/F5F5F5/white/?text=No+Image'"
+      [src]="
+        course.image ||
+        'https://placehold.co/600x400/F5F5F5/white/?text=No+Image'
+      "
       [alt]="course.name + ' cover image'"
     />
 
@@ -16,7 +21,12 @@
 
     <mat-card-footer class="course-card-footer" color="primary">
       <span class="course-price">{{ course.price | currency }}</span>
-      <a mat-flat-button color="primary" [routerLink]="[course.id, 'enrollment']">To Enroll</a>
+      <a
+        mat-flat-button
+        color="primary"
+        [routerLink]="[course.id, 'enrollment']"
+        >To Enroll</a
+      >
     </mat-card-footer>
   </mat-card>
 </section>

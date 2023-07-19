@@ -12,6 +12,10 @@ export class CoursesComponent implements OnInit {
 
   constructor(private http: CoursesService) {}
 
+  onSearch(query: string) {
+    console.log(query)
+  }
+
   ngOnInit(): void {
     this.http
       .getCourses()

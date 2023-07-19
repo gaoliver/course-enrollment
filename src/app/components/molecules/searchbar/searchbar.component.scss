@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: fit-content;
+  gap: var(--spacing-small);
+}
+
+::ng-deep .mat-mdc-form-field-bottom-align {
+  display: none;
+}
+
+.search-input {
+  flex: 1;
+  flex-grow: 4;
+}
+
+.search-btn {
+  flex: 1;
+  height: auto;
+}

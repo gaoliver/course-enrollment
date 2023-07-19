@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { CoursesComponent } from './components/pages/courses/courses.component';
 import { HistoryComponent } from './components/pages/history/history.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CourseEnrollmentComponent } from './components/pages/course-enrollment/course-enrollment.component';
+import { SearchbarComponent } from './components/molecules/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CourseEnrollmentComponent } from './components/pages/course-enrollment/
     CoursesComponent,
     HistoryComponent,
     CourseEnrollmentComponent,
+    SearchbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { CourseEnrollmentComponent } from './components/pages/course-enrollment/
     MatFormFieldModule,
     ReactiveFormsModule,
     MatSelectModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
