@@ -10,5 +10,4 @@ export interface EnrolledCourse {
   name: string;
   duration: number;
   start_date: string;
-  end_date: string;
 }

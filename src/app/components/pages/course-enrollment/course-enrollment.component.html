@@ -15,7 +15,12 @@
 </mat-card>
 
 <aside class="course-enrollment">
-  <mat-stepper orientation="vertical" [linear]="true" #stepper>
+  <mat-stepper
+    orientation="vertical"
+    [linear]="true"
+    #stepper
+    *ngIf="!alreadyEnrolled"
+  >
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup" class="form-container">
         <ng-template matStepLabel>Choose subscription</ng-template>
@@ -60,9 +65,10 @@
           <input
             matInput
             formControlName="startingDate"
-            [matDatepickerFilter]="myFilter"
+            [matDatepickerFilter]="dateFilter"
             [matDatepicker]="picker"
           />
+
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle
             matIconSuffix
@@ -75,20 +81,16 @@
           <button mat-flat-button color="accent" matStepperPrevious>
             Back
           </button>
-          <button mat-flat-button color="primary" matStepperNext>
-            Confirmar
+          <button mat-flat-button color="primary" (click)="handleEnrollment()">
+            Confirm
           </button>
         </div>
       </form>
     </mat-step>
-
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
   </mat-stepper>
+
+  <div class="aside-already-enrolled" *ngIf="alreadyEnrolled">
+    <mat-icon class="confirm-icon">check_circle</mat-icon>
+    <span>You are enrolled in this course.</span>
+  </div>
 </aside>

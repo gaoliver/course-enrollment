@@ -6,9 +6,15 @@ import { Course } from '@src/app/services/@types/apiResponses';
 import { CoursesService } from 'src/app/services/courses.service';
 import { CoutryAPI } from '@components/@types/countries';
 
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { env } from '@src/environments/env';
-import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
+import { Store, select } from '@ngrx/store';
+import { AppState } from '@src/app/store/app.state';
+import { getAppSelector } from '@src/app/store/app.selectors';
+import { getUser, getUserSuccess } from '@src/app/store/user/user.actions';
+import { User } from '@src/app/store/@types/interfaces';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
 
 interface MappedPricing {
   value: number;
@@ -21,6 +27,8 @@ interface MappedPricing {
 })
 export class CourseEnrollmentComponent implements OnInit {
   course: Course | undefined;
+  alreadyEnrolled = false;
+
   coursePrices: MappedPricing[] | undefined;
   countries: CoutryAPI[] | undefined;
   defaultSubscription: string | undefined;
@@ -37,7 +45,7 @@ export class CourseEnrollmentComponent implements OnInit {
 
   TEST_LIST = ['2023-07-01', '2023-07-09', '2023-07-19'];
 
-  myFilter = (d: Date | null): boolean => {
+  dateFilter = (d: Date | null): boolean => {
     const toString = d?.toDateString() || '';
 
     const dDate = new Date(toString);
@@ -55,13 +63,52 @@ export class CourseEnrollmentComponent implements OnInit {
     return !foundDate;
   };
 
+  validateSelectedDate() {
+    const dateValue = this.secondFormGroup.value.startingDate;
+
+    if (!dateValue) return;
+
+    const startDate = new Date(dateValue);
+    const endDate = new Date();
+
+    endDate.setDate(startDate.getDate() + 7);
+
+    if (this.dateFilter(endDate)) {
+      return;
+    }
+
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: "This start date is invalid because of the course's duration. Please, try another one.",
+      duration: 5000,
+      panelClass: ['snackbar-warn'],
+    });
+
+    this.secondFormGroup.controls['startingDate'].setErrors({
+      invalidDate: true,
+    });
+  }
+
   constructor(
     private http: CoursesService,
     private httpClient: HttpClient,
     private activeRoute: ActivatedRoute,
     private title: Title,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar
   ) {}
+
+  checkAlreadyEnroled() {
+    this.store
+      .pipe(select(getAppSelector))
+      .subscribe(
+        (state) =>
+          (this.alreadyEnrolled =
+            !!state.userState.user?.enrolled_courses?.find(
+              (c) => c.id === this.course?.id
+            ))
+      );
+  }
 
   updatePageTitle(title: string) {
     const currTitle = this.title.getTitle();
@@ -103,6 +150,31 @@ export class CourseEnrollmentComponent implements OnInit {
     }
   }
 
+  handleEnrollment() {
+    this.validateSelectedDate();
+
+    if (this.secondFormGroup.invalid) return;
+
+    this.store.dispatch(getUser());
+
+    this.store.pipe(select(getAppSelector)).subscribe((state) => {
+      let user = state.userState.user!;
+
+      if (!user.enrolled_courses) {
+        user = { ...user, enrolled_courses: [] };
+      }
+
+      user.enrolled_courses?.push({
+        id: this.course?.id!,
+        duration: 7,
+        start_date: this.secondFormGroup.value.startingDate!,
+        name: this.course?.name!,
+      });
+
+      this.store.dispatch(getUserSuccess({ user }));
+    });
+  }
+
   ngOnInit(): void {
     const courseIdParam = this.activeRoute.snapshot.paramMap.get('courseId');
 
@@ -124,7 +196,7 @@ export class CourseEnrollmentComponent implements OnInit {
 
         this.updatePageTitle(this.course.name);
 
-        console.log(this.course);
+        this.checkAlreadyEnroled();
       });
     }
   }
