@@ -5,10 +5,12 @@
 $app-primary: mat.define-palette(mat.$pink-palette);
 $app-accent: mat.define-palette(mat.$blue-grey-palette);
 $app-warn: mat.define-palette(mat.$red-palette);
+$app-success: mat.define-palette(mat.$green-palette);
 
 $app-theme: mat.define-light-theme((color: (primary: $app-primary,
         accent: $app-accent,
         warn: $app-warn,
+        success: $app-success,
       )));
 
 @include mat.all-component-themes($app-theme);
@@ -27,6 +29,8 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
   // Colors
   --color-primary: #{mat.get-color-from-palette($app-primary, default)};
   --color-accent: #{mat.get-color-from-palette($app-accent, default)};
+  --color-warn: #{mat.get-color-from-palette($app-warn, default)};
+  --color-success: #{mat.get-color-from-palette($app-success, default)};
 
   --color-white: #FFFFFF;
   ---color-black: #000000;
@@ -45,6 +49,9 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.snackbar-warn {
+  --mdc-snackbar-container-color: var(--color-warn) !important;
+}
 .snackbar-success {
-  background-color: aqua;
+  --mdc-snackbar-container-color: var(--color-success) !important;
 }
