@@ -1,0 +1,15 @@
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50svh;
+
+  button {
+    margin-top: auto;
+  }
+}
+
+.page-title {
+  font-size: 3rem;
+  margin: var(--spacing-large) auto var(--spacing-xx-large);
+}

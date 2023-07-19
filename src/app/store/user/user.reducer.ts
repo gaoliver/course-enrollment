@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { User } from '../@types/interfaces';
-import { getUser, getUserError, getUserSuccess } from './user.actions';
+import { getUser, getUserError, getUserLogout, getUserSuccess } from './user.actions';
 
 export interface UserState {
   user: User | undefined;
@@ -26,5 +26,9 @@ export const userReducer = createReducer(
   on(getUserError, (state) => ({
     ...state,
     status: 'error' as const,
+  })),
+  on(getUserLogout, (state) => ({
+    ...state,
+    user: undefined
   }))
 );

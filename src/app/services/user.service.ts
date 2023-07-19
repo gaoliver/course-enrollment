@@ -26,12 +26,44 @@ export enum UserResponse {
 export class UserService {
   constructor(private store: Store<AppState>) {}
 
+  private dispatchUser(user: UserWithPassword) {
+    const userToken = user.id;
+
+    let { password: _, ...rest } = user;
+
+    this.store.dispatch(getUserSuccess({ user: rest }));
+
+    localStorage.setItem(env.userToken, userToken);
+  }
+
+  public userGetToken() {
+    this.store.dispatch(getUser());
+
+    let foundUser;
+
+    const storedToken = localStorage.getItem(env.userToken);
+    const storedUsers = localStorage.getItem(env.usersStorage);
+
+    if (storedToken && storedUsers) {
+      const parsedList: UserWithPassword[] = JSON.parse(storedUsers);
+
+      foundUser = parsedList.find((user) => user.id === storedToken);
+    }
+
+    if (foundUser) {
+      this.dispatchUser(foundUser);
+      return UserResponse.SUCCESS;
+    }
+
+    return UserResponse.ERROR;
+  }
+
   public userLogin(user: UserCredentials): UserResponse {
     this.store.dispatch(getUser());
 
     let foundUser;
 
-    const foundData = localStorage.getItem(env.usersToken);
+    const foundData = localStorage.getItem(env.usersStorage);
 
     if (foundData) {
       const parsedData: UserWithPassword[] = JSON.parse(foundData);
@@ -46,10 +78,7 @@ export class UserService {
     }
 
     if (foundUser) {
-      let { password: _, ...rest } = foundUser;
-
-      this.store.dispatch(getUserSuccess({ user: rest }));
-
+      this.dispatchUser(foundUser);
       return UserResponse.SUCCESS;
     }
 
@@ -62,7 +91,7 @@ export class UserService {
 
     let userList: UserWithPassword[] = [];
 
-    const foundData = localStorage.getItem(env.usersToken);
+    const foundData = localStorage.getItem(env.usersStorage);
 
     if (foundData) {
       userList = JSON.parse(foundData);
@@ -84,7 +113,7 @@ export class UserService {
 
     const stringList = JSON.stringify(userList);
 
-    localStorage.setItem(env.usersToken, stringList);
+    localStorage.setItem(env.usersStorage, stringList);
 
     return UserResponse.SUCCESS;
   }

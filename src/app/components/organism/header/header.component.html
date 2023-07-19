@@ -7,11 +7,15 @@
         <a mat-flat-button color="primary" routerLink="">Home</a>
       </li>
       <li *ngFor="let page of pagesList">
-        <a mat-button [routerLink]="page.path" routerLinkActive="active">{{ page.title }}</a>
+        <a mat-button [routerLink]="page.path" routerLinkActive="active">{{
+          page.title
+        }}</a>
       </li>
-      <li><a mat-icon-button routerLink="sign-in" class="account-button">
-        <mat-icon fontIcon="person"></mat-icon>
-      </a></li>
+      <li>
+        <a mat-icon-button routerLink="profile" class="account-button">
+          <mat-icon fontIcon="person"></mat-icon>
+        </a>
+      </li>
     </ul>
   </nav>
 </header>
