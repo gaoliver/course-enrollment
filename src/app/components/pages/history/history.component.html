@@ -1,5 +1,21 @@
+<h1 class="history-page-title">Your courses enrollment history:</h1>
+
 <p class="no-history" *ngIf="!courses?.length">You have no courses yet.</p>
 
-<ul>
-  <li *ngFor="let course of courses">{{ course.name }}</li>
-</ul>
+<section class="history-list">
+  <mat-card *ngFor="let course of courses">
+    <mat-card-header>
+      <mat-card-title>{{ course.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-footer class="course-card-footer" color="primary">
+      <span>{{ course.start_date | date }}</span>
+      <span>{{ course.duration }} days</span>
+      <a
+        mat-flat-button
+        color="primary"
+        [routerLink]="['../courses', course.id, 'enrollment']"
+        >See more</a
+      >
+    </mat-card-footer>
+  </mat-card>
+</section>

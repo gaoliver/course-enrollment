@@ -8,3 +8,23 @@
   font-size: x-large;
   color: var(--color-accent);
 }
+
+.history-page-title {
+  margin: var(--spacing-large) auto;
+}
+
+.history-list {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: var(--spacing);
+}
+
+.course-card-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing);
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  margin-top: var(--spacing);
+  align-items: center;
+}
