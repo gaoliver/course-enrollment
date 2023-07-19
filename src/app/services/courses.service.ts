@@ -15,17 +15,19 @@ type GetCourseParams = {
 export class CoursesService {
   constructor(private http: HttpClient) {}
 
-  getCourses(
+  public getCourses(
     params?: GetCourseParams
   ): Observable<APIResponse<CoursesListResponse>> {
     return this.http.get<CoursesListResponse>(
       `https://dev.burnwood.aihr.com/catalog/api/Product?filters=${
         params?.filters || ''
-      }&sorts=${params?.sorts || ''}&page=${params?.page || 1}&pagesize=15&api-version=1.0`
+      }&sorts=${params?.sorts || ''}&page=${
+        params?.page || 1
+      }&pagesize=15&api-version=1.0`
     ) as any;
   }
 
-  getCourse(courseId: string): Observable<APIResponse<Course>> {
+  public getCourse(courseId: string): Observable<APIResponse<Course>> {
     return this.http.get<Course>(
       `https://dev.burnwood.aihr.com/catalog/api/Product/${courseId}?api-version=1.0`
     ) as any;
