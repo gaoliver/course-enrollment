@@ -1,23 +1,33 @@
-<div class="signin-container">
+<form
+  class="signin-container"
+  [formGroup]="form"
+  (ngSubmit)="onRegister()"
+  action=""
+  method="get"
+>
   <h1>Register</h1>
 
   <mat-form-field>
     <mat-label>Fullname</mat-label>
-    <input matInput type="text" [formControl]="name" required />
-    <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
+    <input matInput type="text" formControlName="name" required />
+    <mat-error *ngIf="form.get('name')?.invalid">{{
+      getNameErrorMessage()
+    }}</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>E-mail</mat-label>
-    <input matInput type="email" [formControl]="email" required />
-    <mat-error *ngIf="email.invalid">{{ getEmailErrorMessage() }}</mat-error>
+    <input matInput type="email" formControlName="email" required />
+    <mat-error *ngIf="form.get('email')?.invalid">{{
+      getEmailErrorMessage()
+    }}</mat-error>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Password</mat-label>
     <input
       matInput
-      [formControl]="password"
+      formControlName="password"
       [type]="isPasswordVisible ? 'text' : 'password'"
     />
     <button
@@ -31,7 +41,7 @@
         isPasswordVisible ? "visibility_off" : "visibility"
       }}</mat-icon>
     </button>
-    <mat-error *ngIf="password.invalid">{{
+    <mat-error *ngIf="form.get('password')?.invalid">{{
       getPasswordErrorMessage()
     }}</mat-error>
   </mat-form-field>
@@ -59,12 +69,5 @@
     }}</mat-error>
   </mat-form-field>
 
-  <button
-    type="submit"
-    mat-flat-button
-    color="primary"
-    (click)="onPressRegister()"
-  >
-    Register
-  </button>
-</div>
+  <button type="submit" mat-flat-button color="primary">Register</button>
+</form>

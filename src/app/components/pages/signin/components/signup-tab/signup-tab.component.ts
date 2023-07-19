@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { UserWithPassword } from '@src/app/services/@types/interfaces';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { SnackbarComponent } from '@src/app/components/atoms/snackbar/snackbar.component';
 import { UserResponse, UserService } from '@src/app/services/user.service';
 
 @Component({
@@ -9,49 +11,60 @@ import { UserResponse, UserService } from '@src/app/services/user.service';
   styleUrls: ['./signup-tab.component.scss'],
 })
 export class SignupTabComponent {
-  name = new FormControl('', [Validators.required, Validators.minLength(7)]);
-  email = new FormControl('', [Validators.required, Validators.email]);
-  password = new FormControl('', [
-    Validators.required,
-    Validators.pattern(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-    ),
-  ]);
+  form: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(7)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+      ),
+    ]),
+  });
+
   passwordConfirmation = new FormControl('', [Validators.required]);
 
   isPasswordVisible: boolean = false;
   isPasswordConfirmVisible: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   getNameErrorMessage() {
-    if (this.name.hasError('required')) {
+    if (this.form.controls['name'].hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.name.hasError('minlength')
+    return this.form.controls['name'].hasError('minlength')
       ? 'You must write your full name'
       : '';
   }
 
   getEmailErrorMessage() {
-    if (this.email.hasError('required')) {
+    if (this.form.controls['email'].hasError('required')) {
       return 'You must enter a value';
     }
 
-    if (this.email.hasError('emailExists')) {
-      return 'This e-mail is already registered'
+    if (this.form.controls['email'].hasError('emailExists')) {
+      return 'This e-mail is already registered';
     }
 
-    return this.email.hasError('email') ? 'Not a valid email' : '';
+    return this.form.controls['email'].hasError('email')
+      ? 'Not a valid email'
+      : '';
   }
 
   getPasswordErrorMessage() {
-    if (this.password.hasError('required')) {
+    if (this.form.controls['password'].hasError('required')) {
       return 'You must enter a value';
     }
 
-    return this.password.hasError('pattern') ? 'Your password is too weak' : '';
+    return this.form.controls['password'].hasError('pattern')
+      ? 'Your password is too weak'
+      : '';
   }
 
   getPasswordConfirmErrorMessage() {
@@ -65,7 +78,9 @@ export class SignupTabComponent {
   }
 
   checkPasswords() {
-    return this.password.value !== this.passwordConfirmation.value;
+    return (
+      this.form.controls['password'].value !== this.passwordConfirmation.value
+    );
   }
 
   togglePassVisible() {
@@ -75,23 +90,41 @@ export class SignupTabComponent {
     this.isPasswordConfirmVisible = !this.isPasswordConfirmVisible;
   }
 
-  onPressRegister() {
+  toggleSnackMessage(status: 'success' | 'error') {
+    const message =
+      status === 'error'
+        ? 'There was an inexpected error. Please, try again later.'
+        : 'Account successfully registered!';
+
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: message,
+      duration: 3000,
+      panelClass: [status === 'success' ? 'snackbar-success' : 'snackbar-warn'],
+    });
+  }
+
+  onRegister() {
     if (this.checkPasswords()) {
       return this.passwordConfirmation.setErrors({ passwordsMismatch: true });
     }
 
-    if (this.email.value && this.name.value && this.password.value) {
-      const user: UserWithPassword = {
+    if (this.form.valid) {
+      const status = this.userService.userRegister({
         id: Math.round(Math.random() * 1000).toString(),
-        name: this.name.value,
-        email: this.email.value,
-        password: this.password.value,
-      };
-
-      const status = this.userService.userRegister(user);
+        ...this.form.value,
+      });
 
       if (status === UserResponse.ALREADY_EXISTS) {
-        this.email.setErrors({ emailExists: true });
+        this.form.controls['email'].setErrors({ emailExists: true });
+      }
+
+      if (status === UserResponse.ERROR) {
+        this.toggleSnackMessage('error');
+      }
+
+      if (status === UserResponse.SUCCESS) {
+        this.router.navigate(['']);
+        this.toggleSnackMessage('success');
       }
     }
   }
