@@ -11,6 +11,7 @@ import { AppState } from '../store/app.state';
 import {
   getUser,
   getUserError,
+  getUserLogout,
   getUserSuccess,
 } from '../store/user/user.actions';
 
@@ -55,6 +56,7 @@ export class UserService {
       return UserResponse.SUCCESS;
     }
 
+    this.store.dispatch(getUserLogout());
     return UserResponse.ERROR;
   }
 
@@ -114,6 +116,8 @@ export class UserService {
     const stringList = JSON.stringify(userList);
 
     localStorage.setItem(env.usersStorage, stringList);
+
+    this.dispatchUser(user);
 
     return UserResponse.SUCCESS;
   }
