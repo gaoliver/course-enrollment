@@ -6,7 +6,7 @@ import {
   UserRegister,
   UserWithPassword,
 } from './@types/interfaces';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.state';
 import {
   getUser,
@@ -14,7 +14,6 @@ import {
   getUserLogout,
   getUserSuccess,
 } from '../store/user/user.actions';
-import { getAppSelector } from '../store/app.selectors';
 import { Router } from '@angular/router';
 import { User } from '../store/@types/interfaces';
 
@@ -41,7 +40,7 @@ export class UserService {
   }
 
   public isAuthenticated() {
-    this.store.pipe(select(getAppSelector)).subscribe((state) => {
+    this.store.subscribe((state) => {
       const user = state.userState.user;
 
       if (!user?.id) {
@@ -148,6 +147,7 @@ export class UserService {
         parsedList[foundUserIndex] = { ...parsedList[foundUserIndex], ...user };
 
         this.store.dispatch(getUserSuccess({ user }));
+        localStorage.setItem(env.usersStorage, JSON.stringify(parsedList));
 
         return UserResponse.SUCCESS;
       }

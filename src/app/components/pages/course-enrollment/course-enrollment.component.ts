@@ -8,14 +8,12 @@ import { CoutryAPI } from '@components/@types/countries';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { env } from '@src/environments/env';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '@src/app/store/app.state';
-import { getAppSelector } from '@src/app/store/app.selectors';
-import { getUser, getUserSuccess } from '@src/app/store/user/user.actions';
 import { User } from '@src/app/store/@types/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
-import { UserResponse, UserService } from '@src/app/services/user.service';
+import { UserService } from '@src/app/services/user.service';
 
 interface MappedPricing {
   value: number;
@@ -104,7 +102,6 @@ export class CourseEnrollmentComponent implements OnInit {
 
   checkAlreadyEnroled() {
     this.store
-      .pipe(select(getAppSelector))
       .subscribe(
         (state) =>
           (this.alreadyEnrolled =
@@ -161,7 +158,7 @@ export class CourseEnrollmentComponent implements OnInit {
 
     let mappedUser;
 
-    this.store.pipe(select(getAppSelector)).subscribe((state) => {
+    this.store.subscribe((state) => {
       let user = state.userState.user!;
 
       if (!user.enrolled_courses) {

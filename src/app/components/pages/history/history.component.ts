@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { Course } from '@src/app/services/@types/apiResponses';
+import { Store } from '@ngrx/store';
 import { UserService } from '@src/app/services/user.service';
 import { EnrolledCourse } from '@src/app/store/@types/interfaces';
-import { getAppSelector } from '@src/app/store/app.selectors';
 import { AppState } from '@src/app/store/app.state';
 
 @Component({
@@ -22,14 +20,10 @@ export class HistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store
-      .pipe(select(getAppSelector))
-      .subscribe(
-        (state) => {
-          this.courses = state.userState.user?.enrolled_courses
+    this.store.subscribe((state) => {
+      this.courses = state.userState.user?.enrolled_courses;
 
-          console.log(state.userState.user?.enrolled_courses)
-        }
-      );
+      console.log(state.userState.user?.enrolled_courses);
+    });
   }
 }
