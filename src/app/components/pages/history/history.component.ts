@@ -22,8 +22,6 @@ export class HistoryComponent implements OnInit {
   ngOnInit(): void {
     this.store.subscribe((state) => {
       this.courses = state.userState.user?.enrolled_courses;
-
-      console.log(state.userState.user?.enrolled_courses);
     });
   }
 }

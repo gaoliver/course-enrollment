@@ -10,7 +10,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { env } from '@src/environments/env';
 import { Store } from '@ngrx/store';
 import { AppState } from '@src/app/store/app.state';
-import { User } from '@src/app/store/@types/interfaces';
+import { EnrolledCourse, User } from '@src/app/store/@types/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
 import { UserService } from '@src/app/services/user.service';
@@ -26,6 +26,7 @@ interface MappedPricing {
 })
 export class CourseEnrollmentComponent implements OnInit {
   course: Course | undefined;
+  enroledCourses: EnrolledCourse[] | undefined;
   alreadyEnrolled = false;
 
   coursePrices: MappedPricing[] | undefined;
@@ -42,19 +43,36 @@ export class CourseEnrollmentComponent implements OnInit {
     startingDate: ['', Validators.required],
   });
 
-  TEST_LIST = ['2023-07-01', '2023-07-09', '2023-07-19'];
+  constructor(
+    private http: CoursesService,
+    private userService: UserService,
+    private httpClient: HttpClient,
+    private activeRoute: ActivatedRoute,
+    private title: Title,
+    private _formBuilder: FormBuilder,
+    private store: Store<AppState>,
+    private snackBar: MatSnackBar
+  ) {
+    this.userService.isAuthenticated();
+
+    this.store.subscribe(
+      (state) => (this.enroledCourses = state.userState.user?.enrolled_courses)
+    );
+  }
 
   dateFilter = (d: Date | null): boolean => {
+    if (!this.enroledCourses) return true;
+
     const toString = d?.toDateString() || '';
 
     const dDate = new Date(toString);
     const endDate = new Date();
 
-    const foundDate = this.TEST_LIST.find((date) => {
-      const stringDate = new Date(date).toDateString();
+    const foundDate = this.enroledCourses.find((course) => {
+      const stringDate = new Date(course.start_date).toDateString();
       const startDate = new Date(stringDate);
 
-      endDate.setDate(startDate.getDate() + 6);
+      endDate.setDate(startDate.getDate() + course.duration);
 
       return dDate >= startDate && dDate <= endDate;
     });
@@ -87,28 +105,13 @@ export class CourseEnrollmentComponent implements OnInit {
     });
   }
 
-  constructor(
-    private http: CoursesService,
-    private userService: UserService,
-    private httpClient: HttpClient,
-    private activeRoute: ActivatedRoute,
-    private title: Title,
-    private _formBuilder: FormBuilder,
-    private store: Store<AppState>,
-    private snackBar: MatSnackBar
-  ) {
-    this.userService.isAuthenticated();
-  }
-
   checkAlreadyEnroled() {
-    this.store
-      .subscribe(
-        (state) =>
-          (this.alreadyEnrolled =
-            !!state.userState.user?.enrolled_courses?.find(
-              (c) => c.id === this.course?.id
-            ))
-      );
+    this.store.subscribe(
+      (state) =>
+        (this.alreadyEnrolled = !!state.userState.user?.enrolled_courses?.find(
+          (c) => c.id === this.course?.id
+        ))
+    );
   }
 
   updatePageTitle(title: string) {
@@ -165,14 +168,18 @@ export class CourseEnrollmentComponent implements OnInit {
         user = { ...user, enrolled_courses: [] };
       }
 
-      user.enrolled_courses?.push({
-        id: this.course?.id!,
-        duration: 7,
-        start_date: this.secondFormGroup.value.startingDate!.toString(),
-        name: this.course?.name!,
-      });
-
-      mappedUser = user;
+      mappedUser = {
+        ...user,
+        enrolled_courses: [
+          ...user.enrolled_courses!,
+          {
+            id: this.course?.id!,
+            duration: 7,
+            start_date: this.secondFormGroup.value.startingDate!.toString(),
+            name: this.course?.name!,
+          },
+        ],
+      };
     });
 
     if (mappedUser) {
