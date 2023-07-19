@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.no-history {
+  margin: var(--spacing-large) auto 0;
+  font-size: x-large;
+  color: var(--color-accent);
+}
