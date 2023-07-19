@@ -24,7 +24,7 @@ enum GetUserResponse {
 export class CoursesService {
   constructor() {}
 
-  public getUser(user: UserCredentials): GetUserResponse {
+  public userLogin(user: UserCredentials): GetUserResponse {
     let foundUser;
 
     const foundData = localStorage.getItem(USERS_TOKEN);
