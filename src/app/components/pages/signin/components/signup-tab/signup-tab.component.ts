@@ -104,28 +104,30 @@ export class SignupTabComponent {
   }
 
   onRegister() {
+    let status;
+
     if (this.checkPasswords()) {
       return this.passwordConfirmation.setErrors({ passwordsMismatch: true });
     }
 
     if (this.form.valid) {
-      const status = this.userService.userRegister({
+      status = this.userService.userRegister({
         id: Math.round(Math.random() * 1000).toString(),
         ...this.form.value,
       });
+    }
 
-      if (status === UserResponse.ALREADY_EXISTS) {
-        this.form.controls['email'].setErrors({ emailExists: true });
-      }
+    if (status === UserResponse.ALREADY_EXISTS) {
+      this.form.controls['email'].setErrors({ emailExists: true });
+    }
 
-      if (status === UserResponse.ERROR) {
-        this.toggleSnackMessage('error');
-      }
+    if (status === UserResponse.ERROR) {
+      this.toggleSnackMessage('error');
+    }
 
-      if (status === UserResponse.SUCCESS) {
-        this.router.navigate(['']);
-        this.toggleSnackMessage('success');
-      }
+    if (status === UserResponse.SUCCESS) {
+      this.router.navigate(['']);
+      this.toggleSnackMessage('success');
     }
   }
 }

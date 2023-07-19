@@ -6,6 +6,13 @@ import {
   UserRegister,
   UserWithPassword,
 } from './@types/interfaces';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/app.state';
+import {
+  getUser,
+  getUserError,
+  getUserSuccess,
+} from '../store/user/user.actions';
 
 export enum UserResponse {
   SUCCESS = 'success',
@@ -17,7 +24,9 @@ export enum UserResponse {
   providedIn: 'root',
 })
 export class UserService {
-  constructor() {}
+  constructor(private store: Store<AppState>) {
+    this.store.dispatch(getUser());
+  }
 
   public userLogin(user: UserCredentials): UserResponse {
     let foundUser;
@@ -30,16 +39,21 @@ export class UserService {
       foundUser = parsedData.find(
         (u) =>
           u.email === u.email &&
-          CryptoJS.AES.decrypt(u.password, env.psswdSecret).toString() ===
-            user.password
+          CryptoJS.AES.decrypt(u.password, env.psswdSecret).toString(
+            CryptoJS.enc.Utf8
+          ) === user.password
       );
     }
 
     if (foundUser) {
-      console.log(foundUser);
+      let { password: _, ...rest } = foundUser;
+
+      this.store.dispatch(getUserSuccess({ user: rest }));
+
       return UserResponse.SUCCESS;
     }
 
+    this.store.dispatch(getUserError());
     return UserResponse.ERROR;
   }
 
@@ -54,7 +68,10 @@ export class UserService {
 
       const foundUser = userList.find((u) => u.email && user.email);
 
-      if (foundUser) return UserResponse.ALREADY_EXISTS;
+      if (foundUser) {
+        this.store.dispatch(getUserError());
+        return UserResponse.ALREADY_EXISTS;
+      }
     }
 
     user.password = CryptoJS.AES.encrypt(
