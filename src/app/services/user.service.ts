@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
 import { User } from '../store/@types/interfaces';
-
-const USERS_TOKEN = 'Users';
+import { env } from '@src/environments/env';
 
 export interface UserCredentials {
   email: string;
@@ -27,13 +27,16 @@ export class CoursesService {
   public userLogin(user: UserCredentials): GetUserResponse {
     let foundUser;
 
-    const foundData = localStorage.getItem(USERS_TOKEN);
+    const foundData = localStorage.getItem(env.usersToken);
 
     if (foundData) {
       const parsedData: UserWithPassword[] = JSON.parse(foundData);
 
       foundUser = parsedData.find(
-        (u) => u.email === u.email && u.password === user.password
+        (u) =>
+          u.email === u.email &&
+          CryptoJS.AES.decrypt(u.password, env.psswdSecret).toString() ===
+            user.password
       );
     }
 
@@ -47,7 +50,7 @@ export class CoursesService {
   public userRegister(user: UserWithPassword): GetUserResponse {
     let userList: UserWithPassword[] = [];
 
-    const foundData = localStorage.getItem(USERS_TOKEN);
+    const foundData = localStorage.getItem(env.usersToken);
 
     if (foundData) {
       userList = JSON.parse(foundData);
@@ -57,9 +60,14 @@ export class CoursesService {
       if (foundUser) return GetUserResponse.ALREADY_EXISTS;
     }
 
+    user.password = CryptoJS.AES.encrypt(
+      user.password,
+      env.psswdSecret
+    ).toString();
+
     const stringList = JSON.stringify(userList.push(user));
 
-    localStorage.setItem(USERS_TOKEN, stringList);
+    localStorage.setItem(env.usersToken, stringList);
 
     return GetUserResponse.SUCCESS;
   }
