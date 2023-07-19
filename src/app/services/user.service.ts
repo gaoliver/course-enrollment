@@ -7,7 +7,7 @@ import {
   UserWithPassword,
 } from './@types/interfaces';
 
-enum GetUserResponse {
+export enum UserResponse {
   SUCCESS = 'success',
   ERROR = 'error',
   ALREADY_EXISTS = 'already_exists',
@@ -19,7 +19,7 @@ enum GetUserResponse {
 export class UserService {
   constructor() {}
 
-  public userLogin(user: UserCredentials): GetUserResponse {
+  public userLogin(user: UserCredentials): UserResponse {
     let foundUser;
 
     const foundData = localStorage.getItem(env.usersToken);
@@ -37,13 +37,13 @@ export class UserService {
 
     if (foundUser) {
       console.log(foundUser);
-      return GetUserResponse.SUCCESS;
+      return UserResponse.SUCCESS;
     }
 
-    return GetUserResponse.ERROR;
+    return UserResponse.ERROR;
   }
 
-  public userRegister(user: UserRegister): GetUserResponse {
+  public userRegister(user: UserRegister): UserResponse {
     let userList: UserWithPassword[] = [];
 
     const foundData = localStorage.getItem(env.usersToken);
@@ -54,7 +54,7 @@ export class UserService {
 
       const foundUser = userList.find((u) => u.email && user.email);
 
-      if (foundUser) return GetUserResponse.ALREADY_EXISTS;
+      if (foundUser) return UserResponse.ALREADY_EXISTS;
     }
 
     user.password = CryptoJS.AES.encrypt(
@@ -68,6 +68,6 @@ export class UserService {
 
     localStorage.setItem(env.usersToken, stringList);
 
-    return GetUserResponse.SUCCESS;
+    return UserResponse.SUCCESS;
   }
 }

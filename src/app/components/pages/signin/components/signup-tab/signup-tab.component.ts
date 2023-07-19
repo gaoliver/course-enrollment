@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserWithPassword } from '@src/app/services/@types/interfaces';
-import { UserService } from '@src/app/services/user.service';
+import { UserResponse, UserService } from '@src/app/services/user.service';
 
 @Component({
   selector: 'app-signup-tab',
@@ -37,6 +37,10 @@ export class SignupTabComponent {
   getEmailErrorMessage() {
     if (this.email.hasError('required')) {
       return 'You must enter a value';
+    }
+
+    if (this.email.hasError('emailExists')) {
+      return 'This e-mail is already registered'
     }
 
     return this.email.hasError('email') ? 'Not a valid email' : '';
@@ -84,7 +88,11 @@ export class SignupTabComponent {
         password: this.password.value,
       };
 
-      this.userService.userRegister(user);
+      const status = this.userService.userRegister(user);
+
+      if (status === UserResponse.ALREADY_EXISTS) {
+        this.email.setErrors({ emailExists: true });
+      }
     }
   }
 }
