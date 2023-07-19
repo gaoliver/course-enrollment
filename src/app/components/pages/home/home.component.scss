@@ -1,0 +1,91 @@
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 70svh;
+}
+
+.home-welcome {
+  margin-bottom: var(--spacing-large);
+  font-size: x-large;
+  opacity: 0;
+  animation: opacityAnimation forwards 3s;
+}
+
+.home-title {
+  font-size: 4rem;
+  opacity: 0;
+  animation: fadeAnimation forwards 1.5s;
+  animation-delay: 0.3s;
+}
+
+.home-subtitle {
+  margin-top: var(--spacing-x-large);
+  font-size: x-large;
+  opacity: 0;
+  animation: fadeAnimation forwards 1.5s;
+  animation-delay: 0.6s;
+}
+
+.home-button {
+  opacity: 0;
+  animation: buttonAnimation forwards 1s;
+  animation-delay: 1.5s;
+}
+
+@keyframes fadeAnimation {
+  from {
+    transform: translateY(100px);
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes opacityAnimation {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes buttonAnimation {
+  from {
+    transform: scale(0);
+  }
+
+  20% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  30% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  40% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  50% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  60% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  70% {
+    transform: scale(1.2) rotateZ(-10deg);
+  }
+
+  80% {
+    transform: scale(1.2) rotateZ(10deg);
+  }
+
+  to {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+  }
+}

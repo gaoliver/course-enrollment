@@ -1,1 +1,13 @@
-<p>home works!</p>
+<article class="home-content">
+  <span *ngIf="user" class="home-welcome">Hey, {{ user.name }}</span>
+  <h1 class="home-title">Register today in a course!</h1>
+  <h2 class="home-subtitle">Great courses to increase your knowledge</h2>
+
+  <a
+    mat-flat-button
+    color="primary"
+    class="home-button"
+    [routerLink]="user ? 'courses' : 'sign-in'"
+    >{{ user ? "Register now" : "See courses" }}</a
+  >
+</article>
