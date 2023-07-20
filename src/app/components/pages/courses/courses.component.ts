@@ -33,12 +33,12 @@ export class CoursesComponent implements OnInit {
   }
 
   onSearch(query: string) {
-    this.http.getCourses({ filters: query }).subscribe(
-      (res) => {
+    this.http.getCourses({ filters: query }).subscribe({
+      next: (res) => {
         this.coursesList = res.result.data;
       },
-      () => this.showSnackBar(ERROR_MESSAGE)
-    );
+      error: () => this.showSnackBar(ERROR_MESSAGE),
+    });
   }
 
   ngOnInit(): void {

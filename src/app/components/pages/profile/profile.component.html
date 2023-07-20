@@ -1,7 +1,7 @@
 <article class="profile-content">
   <h1 class="page-title">Profile</h1>
-  <h3>{{ user?.name }}</h3>
-  <h3>{{ user?.email }}</h3>
+  <span class="page-user-data">{{ user?.name }}</span>
+  <span class="page-user-data">{{ user?.email }}</span>
 
   <button mat-button color="warn" (click)="onLogout()">Logout</button>
 </article>

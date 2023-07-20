@@ -12,14 +12,14 @@
         }}</a>
       </li>
       <li>
-        <a mat-icon-button routerLink="profile" class="account-button">
+        <a mat-icon-button routerLink="profile" class="account-button"  aria-label="Link to profile page">
           <mat-icon fontIcon="person"></mat-icon>
         </a>
       </li>
     </ul>
   </nav>
 
-  <button mat-icon-button type="menu" class="mobile-navigation-menu-button" (click)="toggleMobileMenu()">
+  <button mat-icon-button type="menu" class="mobile-navigation-menu-button" (click)="toggleMobileMenu()" aria-label="Link to open menu">
     <mat-icon>menu</mat-icon>
   </button>
 </header>

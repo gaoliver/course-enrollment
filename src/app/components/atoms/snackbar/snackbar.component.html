@@ -1,6 +1,14 @@
 <span class="snackbar-component" matSnackBarLabel>
-  {{message}}
+  {{ message }}
 </span>
+
 <span matSnackBarActions>
-  <button mat-button matSnackBarAction class="snackbar-dismiss" (click)="dismiss()">Dismiss</button>
+  <button
+    mat-button
+    matSnackBarAction
+    class="snackbar-dismiss"
+    (click)="dismiss()"
+  >
+    Dismiss
+  </button>
 </span>

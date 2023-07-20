@@ -20,14 +20,15 @@
     [linear]="true"
     #stepper
     *ngIf="!alreadyEnrolled"
+    aria-label="Course enrollment steps"
   >
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step [stepControl]="firstFormGroup" aria-label="Select a subscription">
       <form [formGroup]="firstFormGroup" class="form-container">
         <ng-template matStepLabel>Choose subscription</ng-template>
-        <mat-form-field class="form-field" formControlName="subscription">
+        <mat-form-field class="form-field">
           <mat-select
             formControlName="subscription"
-            [(ngModel)]="defaultSubscription"
+            [value]="defaultSubscription"
             (selectionChange)="getSubscriptionPrices()"
           >
             <mat-option
@@ -39,7 +40,7 @@
         </mat-form-field>
 
         <mat-form-field class="form-field">
-          <mat-select formControlName="currency" [(ngModel)]="defaultPrice">
+          <mat-select formControlName="currency" [value]="defaultPrice">
             <mat-option
               *ngFor="let subscription of subscriptionPrices"
               [value]="subscription.value"
@@ -51,12 +52,12 @@
         </mat-form-field>
 
         <div class="form-footer">
-          <button mat-flat-button color="primary" matStepperNext>Next</button>
+          <button mat-flat-button color="primary" matStepperNext role="button" aria-label="Go to next tab">Next</button>
         </div>
       </form>
     </mat-step>
 
-    <mat-step [stepControl]="secondFormGroup">
+    <mat-step [stepControl]="secondFormGroup" label="Select a starting date">
       <form [formGroup]="secondFormGroup" class="form-container">
         <ng-template matStepLabel>Starting date</ng-template>
 
@@ -78,10 +79,10 @@
         </mat-form-field>
 
         <div class="form-footer">
-          <button mat-flat-button color="accent" matStepperPrevious>
+          <button mat-flat-button color="accent" matStepperPrevious role="button" aria-label="Go to previous tab">
             Back
           </button>
-          <button mat-flat-button color="primary" (click)="handleEnrollment()">
+          <button mat-flat-button color="primary" (click)="handleEnrollment()" role="button" aria-label="Confirm enrollment">
             Confirm
           </button>
         </div>

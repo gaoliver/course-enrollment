@@ -8,12 +8,14 @@ import { CoutryAPI } from '@components/@types/countries';
 
 import { FormBuilder, Validators } from '@angular/forms';
 import { env } from '@src/environments/env';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '@src/app/store/app.state';
 import { EnrolledCourse, User } from '@src/app/store/@types/interfaces';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackbarComponent } from '../../atoms/snackbar/snackbar.component';
 import { UserService } from '@src/app/services/user.service';
+import { Observable, map } from 'rxjs';
+import { getAppState } from '@src/app/store/app.selectors';
 
 interface MappedPricing {
   value: number;
@@ -26,7 +28,7 @@ interface MappedPricing {
 })
 export class CourseEnrollmentComponent implements OnInit {
   course: Course | undefined;
-  enroledCourses: EnrolledCourse[] | undefined;
+  enroledCourses: Observable<EnrolledCourse[] | undefined> | undefined;
   alreadyEnrolled = false;
 
   coursePrices: MappedPricing[] | undefined;
@@ -55,8 +57,9 @@ export class CourseEnrollmentComponent implements OnInit {
   ) {
     this.userService.isAuthenticated();
 
-    this.store.subscribe(
-      (state) => (this.enroledCourses = state.userState.user?.enrolled_courses)
+    this.enroledCourses = this.store.pipe(
+      select(getAppState),
+      map((state) => state.userState.user?.enrolled_courses)
     );
   }
 
@@ -68,13 +71,17 @@ export class CourseEnrollmentComponent implements OnInit {
     const dDate = new Date(toString);
     const endDate = new Date();
 
-    const foundDate = this.enroledCourses.find((course) => {
-      const stringDate = new Date(course.start_date).toDateString();
-      const startDate = new Date(stringDate);
+    let foundDate;
 
-      endDate.setDate(startDate.getDate() + course.duration);
+    this.enroledCourses.subscribe((list) => {
+      foundDate = list?.find((course) => {
+        const stringDate = new Date(course.start_date).toDateString();
+        const startDate = new Date(stringDate);
 
-      return dDate >= startDate && dDate <= endDate;
+        endDate.setDate(startDate.getDate() + course.duration);
+
+        return dDate >= startDate && dDate <= endDate;
+      });
     });
 
     return !foundDate;
@@ -106,11 +113,9 @@ export class CourseEnrollmentComponent implements OnInit {
   }
 
   checkAlreadyEnroled() {
-    this.store.subscribe(
-      (state) =>
-        (this.alreadyEnrolled = !!state.userState.user?.enrolled_courses?.find(
-          (c) => c.id === this.course?.id
-        ))
+    this.enroledCourses?.subscribe(
+      (list) =>
+        (this.alreadyEnrolled = !!list?.find((c) => c.id === this.course?.id))
     );
   }
 
