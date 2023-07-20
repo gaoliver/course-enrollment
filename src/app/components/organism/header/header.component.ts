@@ -8,6 +8,9 @@ import { navbar } from 'src/app/app-routing.module';
 })
 export class HeaderComponent {
   pagesList = navbar;
+  isMobileMenuOpen: boolean = false;
 
-
+  toggleMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
 }

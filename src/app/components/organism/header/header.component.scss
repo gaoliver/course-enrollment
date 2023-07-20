@@ -54,3 +54,12 @@
 .active {
   background-color: rgba(var(--color-black-rgb), 0.2);
 }
+
+.mobile-navigation-menu-button {
+  display: none;
+  margin-left: auto;
+
+  @include screen-mobile-and-smaller {
+    display: unset;
+  }
+}

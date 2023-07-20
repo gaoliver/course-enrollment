@@ -18,4 +18,10 @@
       </li>
     </ul>
   </nav>
+
+  <button mat-icon-button type="menu" class="mobile-navigation-menu-button" (click)="toggleMobileMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
 </header>
+
+<app-sidemenu-mobile [isOpen]="isMobileMenuOpen" (onPressClose)="isMobileMenuOpen = false"></app-sidemenu-mobile>

@@ -20,28 +20,33 @@ export const navbar: Routes = [
   },
 ];
 
-export const routes: Routes = [
+export const mobileNav: Routes = [
   {
     path: '',
     title: 'Home',
     component: HomeComponent,
   },
-  {
-    path: 'sign-in',
-    title: 'Sign In',
-    component: SigninComponent,
-  },
+  ...navbar,
   {
     path: 'profile',
     title: 'Profile',
     component: ProfileComponent,
   },
+]
+
+export const routes: Routes = [
+  ...mobileNav,
+  {
+    path: 'sign-in',
+    title: 'Sign In',
+    component: SigninComponent,
+  },
+
   {
     path: 'courses/:courseId/enrollment',
     title: 'Course: ',
     component: CourseEnrollmentComponent,
   },
-  ...navbar,
 ];
 
 @NgModule({

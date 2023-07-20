@@ -32,6 +32,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducer } from './store/app.state';
 import { SignupTabComponent } from './components/pages/signin/components/signup-tab/signup-tab.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
+import { SidemenuMobileComponent } from './components/organism/sidemenu-mobile/sidemenu-mobile.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
     SigninTabComponent,
     SignupTabComponent,
     ProfileComponent,
+    SidemenuMobileComponent,
   ],
   imports: [
     BrowserModule,

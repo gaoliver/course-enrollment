@@ -1,0 +1,13 @@
+<nav class="mobile-navigation-container{{ isOpen ? ' is--open' : '' }}">
+  <button mat-icon-button type="button" (click)="onPressCloseBtn()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <ul class="navigation-list">
+    <li *ngFor="let page of pagesList">
+      <a mat-button [routerLink]="page.path" (click)="onPressCloseBtn()" routerLinkActive="active">{{
+        page.title
+      }}</a>
+    </li>
+  </ul>
+</nav>

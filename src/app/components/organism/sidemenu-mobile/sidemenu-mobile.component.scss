@@ -1,0 +1,43 @@
+@import "../../../../mixin.scss";
+
+.mobile-navigation-container {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  transform: translateX(110%);
+  transition: ease-in-out 500ms;
+
+  background-color: var(--color-primary);
+
+  height: 100svh;
+  width: 100%;
+
+  @include screen-mobile-and-smaller {
+    display: unset;
+  }
+}
+
+.navigation-list {
+  padding-inline-start: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--spacing-x-large);
+
+  li {
+    width: 100%;
+    height: fit-content;
+    list-style: none;
+  }
+
+  li a {
+    width: 100%;
+    padding: var(--spacing-large);
+    font-size: larger;
+  }
+}
+
+.is--open {
+  transform: translateX(0);
+}
