@@ -3,7 +3,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Course } from '@src/app/services/@types/apiResponses';
 import { CoursesService } from '@services/courses.service';
 import { SnackbarComponent } from '@components/atoms/snackbar/snackbar.component';
-import { FormControl } from '@angular/forms';
 import { MatSelectChange } from '@angular/material/select';
 
 const ERROR_MESSAGE = 'There was an error on the API. Please, try again later.';

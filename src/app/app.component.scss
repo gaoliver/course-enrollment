@@ -1,7 +1,17 @@
+@import "../mixin.scss";
+
 .app-main-page-container {
-  max-width: var(--max-page-width);
+  max-width: var(--max-page-width-desktop);
   padding: var(--spacing-medium) 0;
   margin: auto;
+
+  @include screen-tablet-and-smaller {
+    max-width: var(--max-page-width-tablet);
+  }
+
+  @include screen-mobile-and-smaller {
+    max-width: var(--max-page-width-mobile);
+  }
 }
 
 .app-header {

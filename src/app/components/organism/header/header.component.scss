@@ -1,3 +1,5 @@
+@import "../../../../mixin.scss";
+
 :host {
   display: flex;
   flex: 1;
@@ -7,7 +9,7 @@
   display: flex;
   flex: 1;
   align-items: center;
-  max-width: var(--max-page-width);
+  max-width: var(--max-page-width-desktop);
   margin: auto;
 }
 
@@ -19,6 +21,10 @@
 .header-navigation {
   margin-left: auto;
   width: fit-content;
+
+  @include screen-mobile-and-smaller {
+    display: none;
+  }
 
   ul {
     width: fit-content;
@@ -44,8 +50,6 @@
     }
   }
 }
-
-.account-button {}
 
 .active {
   background-color: rgba(var(--color-black-rgb), 0.2);

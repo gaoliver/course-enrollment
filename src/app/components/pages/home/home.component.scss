@@ -1,3 +1,5 @@
+@import "../../../../mixin.scss";
+
 .home-content {
   display: flex;
   flex-direction: column;
@@ -17,6 +19,8 @@
 
 .home-title {
   font-size: 4rem;
+  text-align: center;
+  line-height: 1;
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
   -webkit-animation: fadeAnimation forwards 1.5s;
@@ -24,11 +28,23 @@
   animation-delay: 0.3s;
   -webkit-animation-delay: 0.3s;
   -moz-animation-delay: 0.3s;
+
+  @include screen-tablet-and-smaller {
+    font-size: 3rem;
+  }
+
+  @include screen-mobile-and-smaller {
+    font-size: 2rem;
+  }
 }
 
 .home-subtitle {
   margin-top: var(--spacing-x-large);
+
   font-size: x-large;
+  text-align: center;
+  line-height: 1;
+
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
   -webkit-animation: fadeAnimation forwards 1.5s;
@@ -36,6 +52,14 @@
   animation-delay: 0.6s;
   -webkit-animation-delay: 0.6s;
   -moz-animation-delay: 0.6s;
+
+  @include screen-tablet-and-smaller {
+    font-size: 1.5rem;
+  }
+
+  @include screen-mobile-and-smaller {
+    font-size: 1.2rem;
+  }
 }
 
 .home-button {

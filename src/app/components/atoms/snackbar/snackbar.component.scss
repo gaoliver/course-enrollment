@@ -9,7 +9,7 @@
   --mdc-snackbar-supporting-text-size: 1rem;
 
   .mdc-snackbar__surface {
-    max-width: var(--max-page-width);
+    max-width: var(--max-page-width-desktop);
     padding: var(--spacing);
   }
 }

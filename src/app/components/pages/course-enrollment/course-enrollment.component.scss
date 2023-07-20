@@ -1,13 +1,25 @@
+@import "../../../../mixin.scss";
+
 :host {
   display: flex;
-  gap: var(--spacing-xx-large);
+  flex-wrap: wrap;
+  gap: var(--spacing-large);
 }
 
 .course-details {
-  flex: 0.6;
+  flex: 1;
+  flex-grow: 0.5;
 
   display: flex;
   flex-direction: column;
+
+  @include screen-tablet-and-smaller {
+    max-width: 300px;
+  }
+
+  img {
+    object-fit: cover;
+  }
 }
 
 .course-description {
@@ -16,6 +28,15 @@
 
 .course-enrollment {
   flex: 1;
+  flex-grow: 1;
+
+  @include screen-tablet-and-smaller {
+    max-width: calc(var(--max-page-width-tablet) / 2);
+  }
+
+  @include screen-mobile-and-smaller {
+    max-width: var(--max-page-width-mobile);
+  }
 }
 
 .form-field {
@@ -51,6 +72,11 @@
     margin: var(--spacing-large) auto auto;
     font-size: 2rem;
     color: var(--color-accent);
+
+    @include screen-tablet-and-smaller {
+      font-size: 1.2rem;
+      text-align: center;
+    }
   }
 
   .confirm-icon {

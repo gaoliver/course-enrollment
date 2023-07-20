@@ -4,7 +4,7 @@
     class="courses-search"
   ></app-searchbar>
 
-  <mat-form-field>
+  <mat-form-field class="courses-sortby">
     <mat-label>Sort by:</mat-label>
     <mat-select (selectionChange)="onChangeSort($event)" [value]="sortBy">
       <mat-option class="sort-none-option">None</mat-option>

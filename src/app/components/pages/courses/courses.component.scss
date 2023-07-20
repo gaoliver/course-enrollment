@@ -3,20 +3,28 @@
 .courses-filter {
   display: flex;
   gap: var(--spacing);
+  flex-wrap: wrap;
 }
 
 .courses-search {
+  flex: 1;
+  flex-grow: 4;
   margin-bottom: var(--spacing-medium);
+}
+
+.courses-sortby {
+  flex: 0.3;
+  flex-grow: 1;
 }
 
 .courses-container {
   display: grid;
-  grid-template-columns: repeat(4, auto);
-  gap: var(--spacing);
+  grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+  gap: var(--spacing-large);
 }
 
 .course-card-container {
-  width: 350px;
+  max-width: 350px;
 }
 
 .course-card-img {

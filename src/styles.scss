@@ -19,7 +19,9 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
   $lighter: 50;
   $dark: 900;
 
-  --max-page-width: 1400px;
+  --max-page-width-desktop: 1400px;
+  --max-page-width-tablet: 720px;
+  --max-page-width-mobile: 300px;
 
   // Spacing
   --spacing: 10px;
@@ -48,7 +50,9 @@ $app-theme: mat.define-light-theme((color: (primary: $app-primary,
 
 html,
 body {
-  height: 100%;
+  width: 100%;
+  min-height: 100svh;
+  height: fit-content;
 }
 
 body {
