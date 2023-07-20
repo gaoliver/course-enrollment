@@ -24,10 +24,8 @@
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
   -webkit-animation: fadeAnimation forwards 1.5s;
-  -moz-animation: fadeAnimation forwards 1.5s;
   animation-delay: 0.3s;
   -webkit-animation-delay: 0.3s;
-  -moz-animation-delay: 0.3s;
 
   @include screen-tablet-and-smaller {
     font-size: 3rem;
@@ -48,10 +46,8 @@
   opacity: 0;
   animation: fadeAnimation forwards 1.5s;
   -webkit-animation: fadeAnimation forwards 1.5s;
-  -moz-animation: fadeAnimation forwards 1.5s;
   animation-delay: 0.6s;
   -webkit-animation-delay: 0.6s;
-  -moz-animation-delay: 0.6s;
 
   @include screen-tablet-and-smaller {
     font-size: 1.5rem;
@@ -67,10 +63,8 @@
   animation: buttonAnimation forwards 1s;
   animation: buttonAnimation forwards 1s;
   -webkit-animation: buttonAnimation forwards 1s;
-  -moz-animation: buttonAnimation forwards 1s;
   animation-delay: 1.5s;
   -webkit-animation-delay: 1.5s;
-  -moz-animation-delay: 1.5s;
 }
 
 @keyframes fadeAnimation {
@@ -83,7 +77,6 @@
     opacity: 1;
   }
 }
-
 @-webkit-keyframes fadeAnimation {
   from {
     transform: translateY(100px);
@@ -100,7 +93,6 @@
     opacity: 1;
   }
 }
-
 @-webkit-keyframes opacityAnimation {
   to {
     opacity: 1;
