@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "Component",
     "Page",
-    "Service"
+    "Service",
+    "Readme"
   ]
 }
